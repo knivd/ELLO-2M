@@ -1,6 +1,8 @@
 # ELLO-2M
 Electronics of the ELLO 2M DIY portable computer
 
+https://hackaday.io/project/9692-ello-2m
+
 ELLO 2M is a a PIC32-powered portable computer for hobby and education. It is built entirely from PCBs (no other casing!).
 
 **ELLO 2M specifications**
