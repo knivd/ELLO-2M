@@ -1,4 +1,4 @@
-# ELLO-2M
+# ELLO 2M
 Electronics of the ELLO 2M DIY portable computer
 
 https://hackaday.io/project/9692-ello-2m
