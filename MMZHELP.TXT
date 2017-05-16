@@ -1,0 +1,4150 @@
+``HELP
+MMZ Module Help File
+
+The help information resides in a single file MMZHELP.TXT which
+must be located in the root folder of drive A:
+
+One can bring up any file by simply typing 'help whatever' no
+(' or ") are required but can be used and the file will come on 
+the screen and not interrupt the program in memory. 
+
+All file names are in lower case.
+
+      Example
+                                                                    
+      \>help pause 
+
+Will show the "pause" command, then go back to the command prompt.
+
+There are some help files where the name is a reserved keyword in
+MMBasic so if one ends up with the main help screen after pressing
+enter try using a (") Double Quote in front of the help word. 
+
+Below are a list of the major help pages and one just needs to type
+the word into the help. t a minor spelling error is done the Help
+file system will possibly find the relevent file aswell.
+
+- Editor :- Explains the use of the online Editor
+- Commands :- Lists all of the Commands used
+- Functions:- Lists all of the Functions used.
+- Revision Changes - for The Module :- This includes new commands
+- Serial Communications 
+- I2C Communications 
+- SPI Communications 
+- One Wire 
+- Interrupts 
+- Loadable Fonts 
+- Operators and Precendence :- typing operator Will start this file
+- Deprecated Commands 
+- ASCII-DEC-OCT-HEX table
+- Defined Subroutines and Functions
+- Multithreading and other specific to ELLO commands and functions
+
+``PRIORITY() FUNCTION
+
+The PRIORITY() Function
+
+Return the current priority of the active thread.
+
+
+    See also: THREAD, PRIORITY   
+
+``PRIORITY
+
+The PRIORITY Command
+
+Normally when threads are executed, they all receive the same time slice of 
+one BASIC command (time slices are not equal in real time). A thread can 
+elevate its execution priority and receive more time slices at once by calling 
+the PRIORITY command.
+
+Thread priority can be changed everywhere and anytime. Setting priority to 
+zero will effectively end the thread and it will never get the execution 
+again.
+Priority can also be used in the main program body just as any other thread. 
+Setting priority zero in the normal body will terminate it, but unlike the END 
+command, it will not stop the execution of the other running threads.
+
+Priority can be any integer number 0 and greater.
+
+
+    Example:
+    
+MyThread:
+    Priority 5  ' declare that MyThread will be using 5 time slices every time
+                ' when called
+                
+    .....
+    .....   ' these lines will be executed with priority elevated to 5
+    .....
+
+    Priority 1  ' return the thread priority back to normal
+                
+    .....
+    .....
+                
+End
+
+
+    See also: THREAD, PRIORITY()
+    
+``THREAD
+The THREAD Command
+
+MMBasic for MICROMITE implements simple multithreading capabilities, which 
+allow some mutually irrelevant tasks to be executed in parallel. This is done 
+by splitting the program into smaller independant chunks, every one of which 
+must be terminated by an END command. 
+
+END command, executed in the main program will terminate the whole program 
+with all of its threads.
+
+The THREAD command itself does not take time and program continues the 
+execution without delays. It will only set up the necessary parameters for 
+task switching. The thread starts immediately.
+
+Threads can be started and stopped anywhere and anytime by using the commands 
+THREAD and END.
+
+Note that MMBasic does not take any actions to prevent one thread fiddling 
+with variables of another one. When writing multithreading programs, the user 
+should take extra care about same variables not being used in different 
+threads, unless that is desired.
+
+
+    Example: 
+
+' declaring and starting new independant threads    
+Thread MyThread1
+Thread MyThread2
+Thread MyThread3
+
+' main program body
+For i = 1 to 40
+    Print ".";
+Next
+End ' end of the whole program
+
+MyThread1:
+    For i1 = 1 to 20
+        Print "1";
+    Next
+End
+
+MyThread2:
+    Priority 3
+    For i2 = 1 to 10
+        Print "2";
+    Next
+End
+
+MyThread3:
+    For i3 = 1 to 5
+        Print "3";
+    Next
+End
+
+
+The execution of the example program above will produce the following result:
+
+1213.213.213.213.213.21.21.21.21.21.1.1.1.1.1.1.1.1.1......................
+
+    
+    See also: PRIORITY, PRIORITY(), END
+     
+``CINT() FUNCTION
+The CINT Function 
+
+The CINT(number) function will round numbers with fractional
+portions up or down to the next whole number or integer.
+
+'number' should be in the integer number range.
+
+See also: INT() and FIX() both of which return integers.
+
+	Example
+
+	\> PRINT CINT(45.67)
+ 	   46
+
+	45.67 is rounded up to 46.
+
+	\> PRINT CINT(-35.54)
+  	   -36
+
+	-35.54  is rounded up to -36.
+ 
+``CIRCLE
+The CIRCLE Command 
+
+CIRCLE(x and y),r[,c[,F]]
+
+The circle is drawn on the video output centred at x and y with a
+radius of r. If c is zero the pixels are turned off if it is non zero
+or not specified the pixels are turned on (ie the circle is drawn).
+The F option will cause the circle to be filled according to the c 
+parameter.
+
+ NOTE: As the pixels are not eaxctly square, the circle will be oval
+       to some degree.
+
+	Example
+
+	\> CIRCLE(30,60),30,1,F
+
+This draws a circle starting at video screen coordinates x=30, y=60
+turning on the pixels and then filling it to make a solid.
+
+``ABS() FUNCTION
+The ABS Function 
+
+The ABS(number) function will return the absolute value of the
+argument 'number' (ie: any negative sign is removed and the
+positive number is returned.)
+
+	Example
+
+	\> PRINT ABS(7*(-5))
+ 	35
+
+``ASC() FUNCTION
+The ASC Function
+
+The ASC(string$) fuction will return the ASCII code for the
+first letter in the argument 'string$'.
+
+If 'string$' is null, 0 is returned.
+
+If 'string$' begins with an uppercase letter, the value returned 
+will be within the range of 65 to 90.
+
+If 'string$' begins with a lowercase letter, the range is 97 to 122.
+
+Numbers 0 to 9 return 48 to 57, sequentially.
+
+	Example
+
+	\> PRINT ASC("ABC")
+	65
+
+See the CHR$ function for ASCII-to-string conversion.
+
+See the ASCII(ascii) file for ASCII codes.
+
+``ATN() FUNCTION
+The ATN Function 
+
+The ATN(number) function will return the arctangent value
+of the argument 'number' in radians.
+
+The result is within the range of -p/2 to p/2.
+
+The expression 'number' may be any numeric type. 
+
+To convert from degrees to radians, multiply by p/180.
+
+	Example
+
+	\> INPUT X
+	\> PRINT ATN(X)
+	\> RUN
+	? 3
+	 1.24905
+
+``AUTO
+The Auto Command 
+
+There are three ways to use the 'auto' command. 
+
+AUTO
+AUTO startline
+AUTO startline,increment
+
+AUTO enters automatic line entry mode. 'startline' is the line number
+to start numbering at. 'increment' is the increment for each new line.
+
+Both are optional and default to 10 if the command has not
+previously been used or the state of the last used AUTO command
+when it was terminated.
+
+When in automatic line entry mode the next line number will be
+automatically generated and the cursor placed after it ready for
+a program line to be entered. When ENTER is pressed the line will
+be saved to memory and the next number generated.
+
+If the line number is the same as an existing line in memory
+it will be preceded by an asterisk(*). In this case pressing
+ENTER without entering any text will preserve the line in
+memory and generate the next number.
+
+              Example
+
+              \> AUTO 10,10
+              \> 10
+              \> 20
+              etc
+
+              \> AUTO 10,1
+              \> 10
+              \> 11
+              etc
+
+``BLIT
+The BLIT Command 
+
+Copy one section of the video screen to another.       
+
+BLIT x1, y1, x2, y2, w, h
+
+The source coordinate is 'x1' and 'y1'. The destination 
+coordinate is 'x2' and 'y2'. The width of the screen area 
+to copy is 'w' and the height is 'h'. 
+
+All arguments are in pixels. The source and destination 
+can overlap.
+
+``CHAIN
+The CHAIN Command 
+
+Clear the current program from memory, load the new 
+program ('file$') into memory and run it starting with
+the first line.
+
+Unlike the RUN command this command retains the current 
+state of the program (ie, the value of variables, open files, 
+loaded fonts, open COM ports, etc).  The only exception is any 
+open interrupts which will be automatically closed.
+
+One program can CHAINto another which can then chain to another 
+(or back to the original) an unlimited number of times.  As long 
+as a program can be broken down into modules this command allows 
+programs of almost unlimited size to be run, even with limited 
+memory.
+
+Communication between the modules can be accomplished by assigning 
+values to one or more variables which then can be examined by the 
+new chained program.
+
+``RESET COMMAND
+The RESET Command
+
+The RESET command generates system reset from within the user program.
+
+``CHDIR CD COMMAND
+The CHDIR Command 
+
+The CHDIR dir$ command changes the working directory on the default
+drive to 'dir$'.
+
+This command can also be executed in its short format CD dir$
+
+The special entry ".." represents the parent of the current directory
+and "." represents the current directory.
+
+	See also: CWD, DRIVE, FILES, MKDIR, NAME, RMDIR
+
+ 		
+	Example
+
+		\> CHDIR "HELP"
+		\> PRINT CWD$
+		   \HELP
+		\> CHDIR "\"
+		\> PRINT CWD$
+           \
+
+``CHR$()
+The CHR$ Function 
+
+The CHR$(number) function will return a one character string
+consisting of the character corresponding to the ASCII code
+indicated by the argument 'number'.
+
+'number' is a value from 0 to 255.
+
+CHR$ is commonly used to send a special character to the terminal
+or printer. For example, you could add CHR$(13) or CHR$(34) to
+a string.
+
+See the ASC() function for ASCII-to-numeric conversion.
+
+	Examples
+
+	\> PRINT CHR$(66);
+ 	B
+
+This prints the ASCII character code 66 which is the uppercase letter B.
+		
+	\> PRINT CHR$(13);
+
+	This prints a carriage return.
+
+``CONTINUE
+The CONTINUE Command 
+
+The CONTINUE command will resume a program that has been stopped
+by the END statement, an error, or CTRL-C. The program will
+restart with the next statement following the previous stopping point.
+
+              Example
+
+              \> DO
+              \> i = i +1
+              \> PRINT i;
+              \> PAUSE 500
+              \> LOOP UNTIL i = 6
+              \> RUN
+                1 2 3
+               [CTRL-C]
+              \> CONTINUE
+                4 5 6
+              \>
+
+``COS() FUNCTION
+The COS Function 
+
+The COS(number) function will return the cosine of the
+argument 'number' in radians.
+
+COS is the trigonometric cosine function. To convert from 
+degrees to radians, multiply by pi/180.
+
+		Example: 1 
+
+		\> X=2*COS(.4)
+		\> PRINT X
+		\> RUN
+		  1.84212
+
+		Example: 2
+
+		\> PI=3.14159
+		\> PRINT COS(PI);
+		\> DEGREES=180
+		\> RADIANS=DEGREES*PI/180
+		\> PRINT COS(RADIANS)
+		\> RUN
+		 -1 -1
+
+``CWD$
+The CWD$ Function 
+
+The CWD$ function will return the current working directory on
+ 
+the default drive (internal flash a: or micro SD card b:) as a
+string.
+
+See also: CHDIR, DRIVE, FILES, MKDIR, NAME, RMDIR
+
+	Example 
+
+	\> PRINT "CURRENT WORKING DIRECTORY IS: ";CWD$
+	   CURRENT WORKING DIRECTORY IS: \
+
+``DATA READ
+The DATA and READ Commands
+
+ The DATA command stores numerical and string constants to 
+be accessed by READ. String constants do not need to be
+quoted unless they contain significant spaces, the comma
+or a keyword (such as THEN,WHILE,etc). Numerical constants
+can also be expressions such as 5*60.
+
+		Example
+
+		\>  DIM X(10)
+		\>  FOR I = 0 TO 10
+		\>  READ X(I)
+		\>  PRINT X(I)", ";
+		\>  NEXT I
+		\>  DATA 1,2,3,4,5,6,7,8,9,10,11,12
+		\> RUN
+		  1,  2,  3,  4,  5,  6,  7,  8,  9,  10,  11,
+
+``DATE TIME
+The DATE and TIME Commands 
+
+In order to set the DATE and TIME the following commands
+are used. 
+
+
+	 DATE$="DD-MM-YY"
+	 DATE$="DD/MM/YY"
+
+	 TIME$="HH-MM-SS"
+
+The MM and SS are optional and will default to zero if not
+specified (ie: TIME$='14.30' will set the clock to 14:30 with zero
+seconds. Time is set to zero on powerup.
+
+When these commands are used both are saved to the onboard RTCC and if
+a backup battery is fitted the Time and Date will be remembered on
+powerup.
+
+
+On powering up the Module with the backup battery fitted the time
+and date will be displayed at the top of the screen. 
+
+
+		Example
+
+                \> DATE$="29-01-12"
+		\> PRINT DATE$
+		  29-01-2012
+
+		\> TIME$="08:59:10"
+		\> PRINT TIME$
+		  08:59:10
+
+``DATE$
+The DATE$ Function 
+
+The DATE$ function returns the current date based on RTCC
+as a string in the form "DD:MM:YY".
+
+ 	  Example, “28-07-2012”.
+
+
+ To set the date use the command DATE$ =
+
+	 	TIME$="HH-MM-SS"
+
+The RTCC will keep track of the date including leap years.  
+
+		Example
+
+		\> DATE$="1-01-12"
+		\> PRINT DATE$
+		  1-01-2012
+
+``DELETE
+The DELETE Command 
+
+The DELETE command deletes a program line or a range of lines.
+
+	 DELETE line
+	 DELETE -lastline
+	 DELETE firstline-
+	 DELETE firstline-lastline
+
+If -lastline is used it will start with the first line to the end of
+the program. If startline- is used it will delete to the end of the
+program.
+
+``CLEAR
+The CLEAR Command 
+
+The CLEAR command will delete all variable and array memory and 
+recover that memory.
+
+See also: ERASE
+
+              Example
+
+              \> MEMORY
+                   1kB ( 3%) Program memory used
+                   1kB ( 6%) Variable memory used
+                   1kB ( 2%) Array and string memory used
+              \> CLEAR
+              \> MEMORY
+                   1kB ( 3%) Program memory used
+                   1kB ( 0%) Variable memory used
+                   1kB ( 0%) Array and string memory used
+
+``CLOSE COMMAND
+The CLOSE Command
+
+CLOSE [#]nbr[,[#]nbr]
+
+The close command will close the file(s) or serial port(s)
+previously opened with the file number 'nbr'. The [#] is optional.
+
+  See also OPEN, INPUT
+
+      Example
+
+        ] OPEN "OUT1.TXT" FOR output AS #1
+        ] PRINT#1,"Testing..., Testing..."
+        ] CLOSE#1
+
+``CLS
+The CLS Command 
+
+The CLS command will clear the screen and place the cursor
+in the top left hand corner of the screen.
+
+``CLOSE CONSOLE
+The CLOSE CONSOLE Command 
+
+The CLOSE CONSOLE command will close a serial port that
+been opened as the console.
+
+``CONFIG
+The CONFIG Command
+
+CONFIG COMPOSITE
+NTSC | PAL | DISABLED
+or
+CONFIG VIDEO OFF | ON
+or
+CONFIG CASE
+UPPER | LOWER | TITLE
+or
+CONFIG KEYBOARD
+US | UK | FR | GR | BE | IT
+
+Reprogram options into MMBasic. This command differs from
+other options. It permanently reconfigures MMBasic and it
+only needs to be run once. (ie: the setting will be
+remembered even with the power turned off.)
+
+In most cases the module needs to be reset after changing
+a setting for it to take effect.
+
+The default is PAL for the module.
+
+The VIDEO setting will switch the video output on and off.
+There is a performance improvement with the video off but
+the biggest benefit is that the unused memory is returned
+to the memory pool.
+
+The Default is ON
+
+The CASE setting will change the case used for listing command
+and function names when using the list command. 
+
+The default is TITLE
+
+The KEYBOARD setting will change the keyboard layout to
+suit standard keyboards (US), United Kingdom (UK), French (FR)
+German (GR), Belguim (BE) or Italian (IT) keyboards.
+
+The default is US
+
+The TAB setting will set the spacing for the tab key.
+
+The default is 2
+
+``COPY
+ The COPY Command
+
+COPY src$ TO dest$
+
+Copy the file named 'src$' to another file named 'dest$'. 
+'dest$'can be just a drive designation (ie, A:) and this 
+makes it convenient to copy files between drives.
+
+
+WARNING:
+
+    This file can be very dangerous as if one tries to
+copy a file into another DIR this command WILL overwrite
+the DIR and leave the copied file in place.
+
+``ERASE
+The ERASE Command 
+
+The ERASE variable[,variable]... command will delete array variables
+and free up the memory.
+
+Use CLEAR to delete all variables including all array variables.
+
+``ERROR
+The ERROR Command 
+
+The ERROR [error_msg$] will force an error and terminate the program.
+This is normally used in debugging or to trap events thats should not
+occur.
+
+	Example
+
+		\> PRINT "Bye!"
+		\> ERROR "Oops!"
+		\> RUN
+		 Bye!
+		 Error line 20: Oops
+
+``EXIT
+The EXIT Command
+	 
+The EXIT command by itself will exit the program and in a
+DO...LOOP will terminate the loop.
+
+The EXIT FOR command will terminate a FOR...NEXT loop.
+
+	Example
+
+		\> DO 
+		\> PRINT "Hello"
+		\> I = I + 1
+		\> IF I = 4 THEN EXIT
+		\> LOOP
+		\> RUN
+		   Hello
+		   Hello
+		   Hello
+		   Hello
+
+``EXP() FUNCTION
+The EXP Function 
+
+The EXP(number) function will return the exponential value of
+'number'. That is, return e(the base of natural logarithm) to the
+power of 'number'.
+
+	Example
+
+		\> X = 5 
+		\> PRINT EXP(X-1)
+		\> RUN 
+		  54.5981
+
+	 Prints the value of e to the 4th power.
+
+``FILES DIR
+The FILES Command 
+
+The FILES [A] [search_pattern$] command will list files in the current
+directory of the default drive.
+
+This command can also be executed as DIR [A] [search_pattern$]
+
+The optional "A" parameter enables displaying the file attributes when
+used for drive B: or displaying hidden files when used for drive A:
+
+A file in drive A: is considered hidden when its first character in the
+file name is "."
+Hence a file .DATA.LOG in A: is hidden, while the file DATA.LOG is not.
+
+Hidden files do not normaly appear in the FILES command results.
+
+The micro SD card (drive B:) may use an optional 'search_pattern$'.
+
+A question mark(?) matches any character and an asterisk(*) as the
+first character of the filename or extension will match any file or
+any extension. 
+
+If the search_pattern$ is omitted, all files will be listed.
+
+	See also: DRIVE, KILL, LOAD, NAME, RUN, SAVE
+
+	Example
+
+		\> FILES
+		Directory: \
+		HELP                 <DIR>
+		GAME1.BAS              432
+
+``DEPRECATED COMMANDS
+Deprecated Commands 
+	
+These commands are only included to assist in converting programs	
+written for Microsoft BASIC. For new programs, the corresponding
+commands in MMBasic should be used.
+
+PSET PRESET Command
+
+PSET(x,y)
+PRESET(x,y)
+
+(x,y) represents the coordinates of the point. 
+PSET displays a white pixel, PRESET displays a black pixel. 
+
+Coordinate values can be beyond the edge of the screen.
+(0,0) is always the upper-left corner and (MM.HRES, MM.VRES) 
+is the lower-right corner.
+
+Example 1:
+
+The following draws a diagonal line from (0,0) to (100,100).
+	
+	\> CLS
+	\> FOR I=0 TO 100
+	\> PSET(I,I)
+	\> NEXT
+
+	Example 2:
+
+	The following clears out the line by setting each pixel to 0.
+
+	\> FOR I=100 TO 0 STEP -1
+	\> PRESET(I,I)
+	\> NEXT I
+
+		
+WHILE ... WEND Command
+	
+WHILE expression
+[loop statements]
+WEND 
+
+If expression is nonzero (true), loop statements are executed 
+until the WEND statement is encountered. MMBasic then returns 
+to the WHILE statement and checks expression. If it is still true, 
+the process is repeated.
+
+ If it is not true, execution resumes with the statement following 
+the WEND statement. WHILE and WEND loops may be nested to any level. 
+Each WEND matches the most recent WHILE. An unmatched WHILE statement 
+causes a "WHILE without matching WEND" error. An unmatched WEND 
+statement causes a "LOOP without matching DO" error.
+
+	Example
+
+	\> SETPIN 1,8
+	\> WHILE PIN(0)=0 'blink LED on ARDUINO.A0 until USER button is press
+	\> PIN(1) = 1: PAUSE 100: PIN(1) = 0: PAUSE 100
+	\> WEND
+
+		
+WRITE  Command
+	
+WRITE [#filenum,] list-of-expressions
+	
+Outputs the value of each expression separated by commas (,).
+filenum is the number under which the file was opened for output or 
+append, if missing writes to screen.
+
+List-of-expressions is a list of string and/or numeric expressions  
+separated by commas or semicolons.
+
+The WRITE and PRINT statements differ in that WRITE inserts commas 
+between the items as they are written and delimits strings with 
+quotation marks, making explicit delimiters in the list unnecessary. 
+Another difference is that WRITE does not put a blank in front of a 
+positive number. After the last item in the list is written, a
+carriage return/line feed sequence is inserted.
+
+If the expression is a number it is outputted without preceding or 
+trailing spaces. If it is a string it is surrounded by double
+quotation marks "". 
+
+The list is terminated with a new line.
+
+		Examples
+
+	\>WRITE 1, 2, 3, 4, 5, "HELLO"
+	\>1,2,3,4,5,"HELLO"
+
+As you can see WRITE removes the spaces, add commas between the 
+expressions and keeps the ""
+
+	\>Let A$ = "CAMERA" and B$ = "93604-1". The following statement:
+	\>WRITE #1, A$, B$
+
+writes the following image to disk:
+
+	"CAMERA", "93604-1"
+
+A subsequent INPUT$ statement, such as the following, would input 
+
+	"CAMERA" to A$ and "93604-1" 
+	\>to B$:
+	\>INPUT #1, A$, B$
+
+``DIM
+The DIM Command 
+
+DIM variable(<d1>[,<d2>[,<d3>...]])
+
+Allocates space in array memory for a new array, with one dimension
+for each of the dimension sizes d1, d2, d3, etc. given in the DIM
+statement. 
+
+Note that the dimension sizes represent the highest index number
+available. Since the lower limit for the indices is always fixed
+at zero, specifying a dimension of n reserves space for n+1 variables
+ 	 
+in that dimension. 
+
+
+		Example
+
+		\> DIM A$(2)
+		\> A$(0)="0" : A$(1)="1" : A$(2)="2"
+		\> FOR I = 0 TO 2
+		\> PRINT A$(I);
+		\> NEXT
+		\> RUN
+		  0 1 2
+
+``DO LOOP
+The DO...LOOP Command 
+
+The DO LOOP commamd - This structure will loop forever or
+until an EXIT command terminates the loop or control is explicitly
+transferred outside of the loop with commands like GOTO and RETURN. 
+
+Note: The DO keyword must be on a line by itself.
+
+
+ The DO...LOOP WHILE... Command 
+
+The DO WHILE LOOP command loops while the conditions are true.
+The conditonss must be numeric expressions. If they evaluate to zero
+they are treated as false; non-zero is treated as true.
+
+
+Note: The DO keyword must be on a line by itself.
+
+(This is equivalent to the deprecated WHILE...WEND loop, also 
+implemented in MMBasic.)
+
+ The DO...LOOP UNTIL... Command 
+
+The DO LOOP UNTIL command will loop until the conditional
+expression following the UNTIL is true.
+
+
+Note: The DO keyword must be on a line by itself.
+
+		Examples
+
+		\> DO
+		\> PRINT "Hello world" 
+		\> I = I + 1
+		\> IF I >= 4 THEN END
+		\> LOOP
+
+		\> DO
+		\> I = I + 1
+		\> PRINT I
+		\> LOOP WHILE I < 5
+
+		\> DO
+		\> I = I + 1
+		\> PRINT I
+		\> LOOP UNTIL I = 5
+
+``DRIVE A: B:
+The DRIVE Command 
+
+The DRIVE string$ command changes the default drive to string$.
+ 
+A: is the internal FLASH drive and B: is the micro SD card (if
+present).
+
+See also: CWD, CHDIR, FILES, KILL, LOAD, MKDIR, NAME, RMDIR, SAVE
+
+		 Example
+
+		 \> DRIVE "A:"
+		 \> FILES
+		  0 files, 260864 bytes free
+
+		 \> DRIVE "B:"
+		 \> FILES
+		  Directory: \
+		  MORTGAGE.BAS          1381
+		  TEST.BAS               133
+
+``IF THEN ELSE ELSEIF ENDIF
+The IF Command 
+
+The IF expr THEN statemnet or IF expr THEN statement ELSE statement,
+evaulates the "expr" and performs the THEN statement if it is true
+or skips to the next line if false.
+
+The optional ELSE statement is the reverse of the THEN test. The
+'statement' can be just a line number and in that case a GOTO is
+assumed. For Microsoft BASIC compatability the THEN "statement"
+construct can be also replaced with a "GOTO" line number.
+
+This type of IF statement is all on one line.
+
+ The IF expression THEN 
+
+	 <statement>
+	 [ELSE
+	 <statements>]
+	 [ELSEIF expression THEN
+	 <statements>]
+	 ENDIF
+
+Multiline IF statement with optional ELSE and ELSEIF cases and
+ending with ENDIF. Each component is on a seperate line.
+The IF evaluates "expression" and performs the statement(s)
+following THEN if the "expression" is true or optionally the
+statement(s) following the ELSE statements as required.
+
+ The ELSE statement 
+
+The ELSE statement introduces a default condition in a multiline
+IF statement.
+
+ The ELSEIF expression THEN statement 
+
+Introduces a secondary condition in a multiline IF statement.
+
+ The ENDIF statement 
+
+Terminates a multiline IF statement.
+
+``END
+The END Command 
+
+The END command will end the running program and return 
+to the command prompt.
+
+		Example
+
+		\> PRINT "Hello!"
+		\> 2END
+		\> PRINT "Bye Bye!"
+		\> RUN
+		 Hello!
+
+``EOF() FUNCTION
+The EOF Function 
+
+The EOF([#]nbr) function will return true if the file previously
+opened for INPUT with the file number 'nbr' is positioned at the end
+of the file.
+
+If used on a file number opened as a serial port this function will
+return true if there are no characters waiting in the receive buffer.
+
+The # is optional.
+
+	See also: OPEN, INPUT, LINE INPUT, INPUT$
+ 
+ ``GOSUB
+The GOSUB Command 
+
+GOSUB Target
+
+Initiates a subroutine call to the target, which can be a line number 
+or a label. The subroutine must end with RETURN.
+	
+See also: GOTO
+
+``GOTO
+The GOTO Command 
+
+GOTO Target
+
+Branches program execution to the target, which can be a line number or 
+a label.
+
+``HEX$()
+The HEX$ Function 
+
+The HEX$(nbr) function will return a string for the hexadecimal
+(base 16) value for 'nbr'.
+
+HEX$ converts decimal values within the range of 0 to 1677100 and 
+produces string expression within the range of 0 to FFFFFFFF.
+
+Hexadecimal numbers are numbers to the base 16, rather than base 10
+(decimal numbers). 'nbr' is rounded to an integer before HEX$(x) is
+evaluated. 
+
+If 'nbr' is negative, 2's (binary) complement form is used 
+	
+  i.e. -1 is FFFFFFFF
+
+	See also: OCT$() function
+
+		
+	Example
+
+		\> CLS: INPUT "INPUT DECIMAL NUMBER";X
+		\> A$=HEX$(X)
+		\> PRINT X " DECIMAL IS "A$" HEXADECIMAL"
+		\> RUN
+ 		 INPUT DECIMAL NUMBER? 32
+		  32 DECIMAL IS 20 HEXADECIMAL
+
+``FIX() FUNCTION
+The FIX Function 
+	 
+The FIX(nbr) function will truncate nbr to a whole number by
+eliminating the decimal point and all characters to the right
+of the decimal point.
+
+The major difference between FIX ans INT is that FIX provides a
+true integer function (ie does not return the next lower number for
+negative numbers as INT() function does).
+
+This behaviour is for Microsoft compatibility.  
+
+	 See also: CINT, INT
+
+
+	Example
+
+		\> PRINT FIX(-9.1)
+		 -9
+
+``FONT
+The FONT Commands 
+
+FONT[#]nbr[[,scale][,revers]]
+
+The FONT command will select a font for the video output.
+
+'nbr' is the font number in the range 1 to 10, the # symbol is
+      optional.
+	
+'scale' is the scaling factor in the range 1 to 8 (eg a scale of 2
+        will double the size of pixels in both the vertical and horizontal).
+	Default is 1.
+
+If 'reverse' is a number other than zero, the font will be displayed
+in reverse video. Default is no reverse.
+
+There are three fonts built in to MMBasic.
+
+ #1 is the standard font of 10x5 pixels containing the full ASCII set.
+	
+ #2 is a larger font of 16x11 pixels also with the full ASCII set.
+
+ #3 is a jumbo font of 30x22 pixels consisting of the numbers zero to 
+    nine and the characters plus,minus,comma and fullstop.
+
+	Example
+
+		 FONT#3,2,1     double scale and reverse video.
+		 FONT#2         just selects font #2
+
+
+ The FONT LOAD Command 
+
+
+The FONT LOAD file$ AS [#]nbr will load the font contained in
+"file$" and install it as font 'nbr' which can be any number 
+between 4 and 10, the # symbol is optional.
+
+	Example
+
+	 FONT LOAD "SPACE.FNT" AS #4
+
+	
+ THE FONT UNLOAD Command
+
+The FONT UNLOAD[#]nbr will unload font 'nbr' and free its memory.
+The # symbol is optional. You cannot unload the builtin fonts.
+
+	Example
+
+	 FONT UNLOAD#4
+
+``FOR NEXT STEP
+The FOR Command 
+
+The FOR counter = start TO finish [STEP increment] command will
+iniate a FOR-Next loop with the 'counter' initially set to 'start'
+and incrementing in 'increment' steps (default is 1) until 'counter'
+equals 'finish'. The 'increment' must be an integer, but it may be a
+negative integer.
+
+		 
+	Example
+
+		\> FOR I = 1 TO 3
+		\> PRINT I;
+		\> NEXT
+		\> RUN
+		  1 2 3
+
+		\> FOR I = 1 TO 3 STEP 2
+		\> PRINT I;
+		\> NEXT
+		\> RUN
+		  1 3
+
+``FORMAT$() FUNCTION
+The FORMAT$ Function 
+
+The FORMAT$(nbr[,fmt$]) function will return a string 'nbr'
+formatted according to the specifications in the string 'fmt$'.
+
+The format specification starts with a % character and ends
+with a letter. Anything outside of this construct is copied
+to the output as is.
+
+The structure of a format specification is :
+
+-	Left jusitify the value within a given field width
+
+0	Use 0 for the pad character instead of a space
+
++	Forces the + sign to be shown for positive numbers
+
+space	Causes a positive value to display a space for the
+	sign. Negative values still show the - sign.
+
+'width' is the minimum number of characters to output, less
+	than this number will be padded, more than this width will
+	be expanded.
+
+'type' can be of:
+
+	g	Automatically format the number for the best presentation
+
+	f	Format the number with the decimal point and following
+		digits
+
+	e	Format the number in exponential format
+
+If uppercase G of F is used the exponential output will use
+an upper case E. If the format specification is not specified
+	%g" is assumed.
+
+		Examples
+
+		format$(45) will return 45 
+		format$(45,   "%g") will return 45 
+		format$(24.1, "%g") will return 24.1 
+		format$(24.1, "%f") will return 24.100000 
+		format$(24.1, "%e") will return 2.410000e+01 
+		format$(24.1, "%09.3f") will return 00024.100 
+		format$(24.1, "%+.3f") will return +24.100 
+		format$(24.1, "**%-9.3f**") will return **24.100   **
+
+``FUNCTION
+The FUNCTION Command 
+
+FUNCTION xxx (arg1 
+[,arg2, ])
+<statements>
+<statements>
+xxx = <return value>
+END FUNCTION
+
+Defines a callable function. This is the same as adding a 
+new function to MMBasic while it is running your program.
+
+'xxx' is the function name and it must meet the specifications 
+      for naming a variable. 
+
+'arg1', 'arg2', etc are the arguments or parameters to the 
+                function.
+
+To set the return value of the function you assign the value to the 
+function's name. 
+
+       For example:
+
+              FUNCTION SQUARE(a)
+              SQUARE= a * a
+              END FUNCTION
+
+Every definition must have one END FUNCTION statement. When this 
+is reached the function will return its value to the expression from 
+which it was called. The command EXIT FUNCTION can be used for an early 
+exit.
+
+You use the function by using its name and arguments in a program just 
+as you would a normal MMBasic function. 
+
+       For example:
+
+              PRINT SQUARE(56.8)
+
+When the function is called each argument in the caller is matched to 
+the argument in the function definition. These arguments are available 
+only inside the function. 
+
+Functions can be called with a variable number of arguments. Any omitted 
+arguments in the function's list will be set to zero or a null string.
+
+Arguments in the caller's list that are a variable (ie, not an expression 
+or constant) will be passed by reference to the function. This means that 
+any changes to the corresponding argument in the function will also be 
+copied to the caller's variable.
+
+You must not jump into or out of a function using commands like GOTO, 
+       GOSUB, interrupts, etc. Doing so will have undefined side effects.   
+
+``INSTR() FUNCTION
+The INSTR Function
+
+INSTR([start-position,] string-searched$,string-pattern$)
+
+INSTR returns the position at which string-pattern$ occurs in
+string-searched$, beginning at the start position.
+
+The optional offset [start-position] sets the position for starting
+the search. The default value for [start-position] is 1.
+If [start-position] equals zero, the error "Number out of bounds" is
+returned. [start-position] must be in the range 1 to 255.
+If [start-position] is out of this range, a "Number out of bounds"
+error is returned.
+
+INSTR returns 0 if:
+- [start-position] > LEN(string-searched$)
+- [string-searched] is null
+- [string-pattern$] cannot be found
+
+If [string-pattern$] is "", INSTR returns [start-position].
+
+[string-searched$] and [string-pattern$] may be string variables, 
+string expressions, or string literals.
+
+Example
+
+    \> 10 X$="ABCDEBXYZ"
+    \> 20 Y$="B"
+    \> 30 PRINT INSTR(X$, Y$); INSTR(4, X$, Y$)
+    \> RUN
+      2 6
+
+The interpreter searches the string "ABCDFBXYZ" and finds the 
+first occurrence of the character B at position 2 in the string.
+It then starts another search at position 4 (D) and finds the 
+second match at position 6 (B). The last three characters are 
+ignored, since all conditions set out in line 30 were satisfied.
+
+``INT()
+The INT Function
+
+The INT( number ) function will truncate an expression to the
+next whole number less than or equal to the argument.
+
+See also CINT() function
+
+    Example
+
+    \> PRINT INT(9.89)
+      9
+
+    \> PRINT INT(-2.11)
+     -3
+
+This behaviour is for Microsoft compatibility, the FIX()
+function provides a true integer function.
+
+``INTERRUPT
+Interrupts 
+Most external I/O pin can be configured to generate an interrupt 
+using the SETPIN command with many interrupts (including the tick 
+interrupt) active at any one time. Interrupts can be setup to occur 
+on a rising or falling digital input signal and will cause an 
+immediate branch to a specified line number,labelor a user
+defined subroutine.
+The target can be the same or different for each interrupt.
+Return from an interrupt is viathe IRETURN statementexcept where 
+a user defined subroutine is used (in that case END SUB or EXIT SUB
+is used). Within the interrupt routine GOTO, GOSUB and calls to 
+other subroutines can be used.
+If two or more interrupts occur at the same time they will be 
+processed in order of pin numbers (ie,an interrupt on pin 1 will 
+have the highest priority). During processing of an interrupt all 
+other interrupts aredisabled until the interrupt routine returns 
+with an IRETURN. During an interrupt (and at all times) the value of
+the interruptpin can be accessed using the PIN() function.
+Up to four periodic interrupts (or regular “ticks”) with periods
+specified in milliseconds can be setup using theSETTICK statement. 
+This interrupt has the lowest priority.
+Interrupts can occur at any time but they are disabled during 
+INPUT statements. If you need to get input from the keyboard while 
+still accepting interrupts you should use the INKEY$ function
+or the ON KEY command.
+When using interrupts the main program is completely unaffected by 
+the interrupt activity unless a variable used by the main program
+is changed during the interrupt.
+For most programs MMBasic will respond to an interrupt in under
+100µS. 
+To prevent slowing the main programbytoo much an interrupt should 
+be short and exit as soon as possible.
+Also remember to disable aninterrupt when you have finished needing 
+it
+–background interrupts can cause strange and nonintuitive bugs.- 
+
+
+
+``IRETURN
+The IRETURN Command 
+
+The IRETURN command will return from an interrupt. The next statement
+to be executed will be the one that was about to be executed when the
+interrupt was triggered.
+
+``KILL
+The KILL Command 
+
+The KILL file$ command will delete the file specified by file$ from
+the default drive (internal flash a: or micro SD card b:).
+Quotation marks are required around a string constant and the 
+extension, if there is one, must be specified. 
+
+See also: DRIVE, FILES, LOAD, NAME, RUN, SAVE
+	 	
+	Example
+
+		\>KILL "SAMPLE.DAT"
+
+``LCASE$()
+The LCASE$ Function 
+
+The LCASE$(string$) function will return 'string$' to lowercase
+characters.
+
+See also: UCASE
+
+	Example
+
+		\>PRINT LCASE$("qWeRTyUIop")
+		\>qwertyuiop
+
+``LEFT$()
+The LEFT$ Function 
+
+LEFT$(string$,number-of-chars) 
+
+Will return a substring of 'string$' with 'number-of-chars' 
+from the left (beginning) of the string.
+
+'number-of-chars' must be within the range of 0 to 255. 
+If 'number-of-chars' is greater than LEN(x$), the entire 'string$'
+will be returned. If 'number-of-chars' equals zero, the null string
+(length zero) is returned.
+
+	
+See also: INSTR,  MID$(), RIGHT$() substring functions.
+
+	Example
+
+		\> A$="BASIC"
+		\> 2B$=LEFT$(A$, 3)
+		\> PRINT B$
+		\> RUN
+ 		 BAS
+
+``I2C IIC
+I2C Communication 
+
+The Inter Integrated Circuit (I2C) bus was developed  by the
+electronics giant Philips for the transfer of data between integrated
+circuits. It has been adopted by many manufacturers and can be used
+to communicate with many devices including memories, clocks, displays,
+speech module, etc.
+
+This implementation was developed by Gerard Sexton and fully supports
+master and slave operation, 10 bit addressing, address masking and
+general call, as well as bus arbitration (ie bus collisions in a 
+multi master environment).
+
+In the master mode, there is a choice of interrupt or normal mode.
+In normal mode, the I2C send and receive commands will not return
+until the command completes or a timeout occurs (if the timeout option
+has been specified). In interrupt mode, the send and receive commands
+return immediately allowing other MMBasic commands to be executed
+while the send and receive are in progress. When the send/receive
+transactions have completed, an MMBasic interrupt will be executed.
+This allows you to set a flag or perform some other processing 
+when this occurs. 
+
+-----------------------------------------------------------------
+CONFIRM PINS FOR MODULE
+-----------------------------------------------------------------
+When enabled the I2C function will use UEXT pins 5
+and 6, UEXT.5 becomes the I2C clock line (SCL) and UEXT.6 becomes the
+I2C data line (SDA). Both of these pins have pullup resistors 4.7K.
+I2C is also connected via R4 and R26 to PIN(5) and PIN(6) ARDUINO.A4
+(SDA) and ARDUINO.A5 (SCL) .
+-----------------------------------------------------------------
+
+Be aware that when running the I2C bus at above 150KHz the cabling
+between the devices becomes important. Ideally the cables should be
+as short as possible (to reduce capacitance) and also the data and
+clock lines should not run next to each other but have a ground wire
+between them (to reduce crosstalk). If the data line is not stable
+when the clock is high, or the clock line is jittery, the I2C
+peripherals can get "confused" and end up locking the bus (normally
+by holding the clock line low). If you do not need the higher speeds
+then operating at 100kHz is the safest choice.
+
+There are four commands for master mode: I2CEN, I2CDIS, I2CSEND 
+and I2RCV. 
+
+For slave mode the commands are: I2CSEN, I2SDIS, I2CSSEND and 
+I2CSRCV. The master and slave modes can be enabled simultaneously 
+however, once a master command is in progress, the slave function 
+will be "idle" until the master releases the bus. Similarly, if a 
+slave command is in progress, the master commands will be unavailable 
+until the slave transaction completes. 
+
+Both the master and slave modes use an MMBasic interrupt to signal 
+a change in status. These interrupt routines operate the same as a 
+general interrupt on an external I/O pin and must be terminated 
+with an IRETURN command to return control to the main program when 
+completed. The automatic variable MM.I2C will hold the result of a 
+command or action. 
+
+	I2C Master Mode Commands 
+
+I2CEN speed, timeout [,interrupt-line]
+
+Enables the I2C module in master mode. 'speed' is a value between 10 
+and 400 (for bus speeds 10kHz to 400kHz). 'timeout' is a value in 
+milliseconds after which the master send and receive commands will be 
+interrupted if they have not completed. The minimum value is 100. A 
+value of zero will disable the timeout (this is not recommended). 
+'interrupt-line' is optional. It specifies the line number of an
+interrupt routine to run when the send or receive command completes.
+If this is not supplied, the send and receive command will only return
+when they have completed or timed out. If it is supplied then the send
+and receive will complete immediately and the command will execute in
+the background. 
+
+	I2CDIS 
+
+Disables the slave I2C module. It will also send a stop if the bus is 
+still held. 
+
+	I2CSEND address, option, snd-len, snd-data [,snd-data]
+
+Send data to the I2C slave device. 
+
+'address' is the slave I2C address.
+
+'option' is a number between 0 and 3, 1=keep control of the bus after 
+	 the command (a stop condition will not be sent at the completion 
+	 of the command);  2=treat the address as a 10 bit address ;
+	 3=combine 1 and 2 (hold the bus and use 10 bit addresses). 
+
+'snd-len' is the number of bytes to send. 
+
+'snd-data' is the data to be sent - this can be specified in various
+           ways (all values sent will be between 0 and 255): 
+
+The data can be supplied in the command as individual bytes. 
+
+	Example
+
+		\> I2CSEND &H6F,1,3,&H23,&H43,&H25 
+
+The data can be in a one dimensional array (the subscript does not
+
+	Example
+
+		\> I2CSEND &H6F,1,3,ARRAY(0)
+
+The data can be a string variable (not a constant). 
+
+		Example
+
+		\> I2CSEND &H6F,1,3,STRING$ 
+
+The automatic variable MM.I2C will hold the result of the transaction.
+
+	
+	I2CRCV address, bus-hold, rcv-len, rcv-buf [, snd-len, snd-data] 
+
+Receive data from the I2C slave device with the optional ability to 
+send some data first. 
+
+'address' is the slave I2C address (note that 10 bit addressing is not
+	  supported). 
+
+'option' is a number between 0 and 3 ; 1=keep control of the bus 
+	 after the command (a stop condition will not be sent at the 
+	 completion of the command) ; 2=treat the address as a 10 bit 
+	 address; 3=combine 1 and 2 (hold the bus and use 10 bit
+	 addresses). 
+
+'rcv-len' is the number of bytes to receive.  
+
+'rcv-buf' is the variable to receive the data - this is a one
+	  dimensional array or if 'rcv-len' is 1 then this may be a
+	  normal variable. 
+
+The array subscript does not have to be zero and will be honoured,
+also bounds checking is performed. Optionally you can specify data to
+be sent first using snd-len and snd-data. These parameters are used
+the same as in the I2CSEND command (ie, snd-data can be a constant,
+an array or a string variable). 
+
+	Examples
+
+		\> I2CRCV &H6F,1,1,BYTE 
+		\> I2CRCV &H6F,1,5, ARR(0)
+		\> I2CRCV &H6F,1,4,ARR(2),3,&H12,&H34,&H56 
+		\> I2CRCV &H6F,1,3,RCVARRAY(0),4,SNDARRAY(0) 
+
+The automatic variable MM.I2C will hold the result of the transaction.
+
+I2C Slave Mode Commands 
+
+	I2CSEN address, mask, option, send-int-line, rcv-int-line
+
+Enables the I2C module in slave mode. 
+
+'address' is the slave I2C address
+
+'mask' is the address mask (bits set as 1 will always match) option is
+       a number between 0 and 3 ; 1= allows MMBasic to respond to
+       the general call address. When this occurs the value of
+       MM.I2C will be set to 4; 2 = treat the address as a 10 bit
+       address ; 3 = combine 1 and 2 (respond to the general call
+       address and use 10 bit addresses). 
+
+'send-int-line' is the line number of a send interrupt routine to be 
+	        invoked when the module has detected that the master 
+	        is expecting data 
+
+'rcv-int-line' is the line number of a receive interrupt routine to be
+	       invoked when the module has received data from the master. 
+	
+	I2CSDIS 
+
+Disables the slave I2C module. 
+
+	I2CSSEND snd-len, snd-data [,snd-data] 
+
+Send the data to the I2C master. This command should be used in the 
+send interrupt (ie in the snd_int-line when the master has requested 
+data). Alternatively a flag can be set in the send interrupt routine 
+and the command invoked from the main program loop when the flag is
+set. 
+
+	'snd-len' is the number of bytes to send. 
+
+	'snd-data' is the data to be sent. This can be specified 
+	           in variousways, see the I2CSEND commands for details. 
+
+	I2CSRCV rcv-len, rcv-buf, rcv-d
+
+Receive data from the I2C master device. This command should be used 
+in the receive interrupt (ie in the rcv-int-line when the master has 
+sent some data). Alternatively a flag can be set in the receive 
+interrupt routine and the command invoked from the main program loop 
+when the flag is set. 
+
+	'rcv-len' is the maximum number of bytes to receive. 
+
+	'rcv-buf' is the variable to receive the data - this is a one
+		dimensional array or if rcv-len is 1 then this may be a
+		normal variable. 
+
+The array subscript does not have to be zero and will be honoured, 
+also bounds checking is performed. 
+
+	'rcv-d' will contain actual number of bytes received by the command. 
+
+			I2C Automatic Variable 
+
+		MM.I2C 
+
+Is set to indicate the result of an I2C operation. 
+
+0 = The command completed without error. 
+1 = Received a NACK response 
+2 = Command timed out 
+4 = Received a general call address (when in slave mode) 
+
+		I2C Utility Command
+
+NUM2BYTE number, array(x) or 
+NUM2BYTE number, variable1, variable2, variable3, variable4
+
+Convert number to four numbers containing the four separate bytes 
+of number (MMBasic numbers are stored as the C float type and are 
+four bytes in length). The bytes can be returned as four separate 
+variables, or as four elements of array starting at index x. 
+
+See the function BYTE2NUM() for the reverse of this command. 
+
+BYTE2NUM(array(x)) or 
+BYTE2NUM(byte1,byte2,byte3,byte4)
+
+Return the number created by storing the four arguments as consecutive 
+bytes (MMBasic numbers are stored as the C float type and are four 
+bytes in length). The bytes can be supplied as four separate numbers 
+or as four elements of array starting at index x. 
+
+See the command NUM2BYTE for the reverse of this function. 
+
+``INKEY$
+The INKEY$ Function 
+
+The INKEY$ function reads the status of the keyboard, and
+rerurns a single character if available. If a character is
+not avaliable, this function will immediatly return with a
+null string ("").
+
+No characters are displayed on the screen, and all characters 
+except the following are passed to the program.
+
+	CTRL-BREAK
+	CTRL-NUM LOCK
+	CTRL-ALT-DEL
+	CTRL-PRTSCR
+	PRTSCR
+
+``INPUT
+The INPUT Command
+
+INPUT[prompt string$] variable [,variable...]
+	 
+This command allows input from the keyboard to a list of variables.
+The input command will prompt with a question mark(?).
+
+The input must contain commas to separate the data for each variable
+if there is more than one. For Example, if the command is:
+
+INPUT a,b,c 
+and 23, 87, 66 is typed on the keyboard, then a=23, b=87 and c=66.
+
+If the optional 'prompt string$' is specified it will be printed
+before the question mark prompt.
+
+If the 'prompt string$' is terminated with a comma (,) rather than a
+semicolon (;) the question mark will be supressed.
+
+INPUT#nbr, variable [,variable...]
+
+This command is the same as the previous one except that the input
+is read from a file previously opened for INPUT as 'nbr'.
+
+	See also: OPEN, LINE INPUT.
+
+		Example
+
+		\> OPEN "OUT1.TXT" FOR input AS #1
+		\> INPUT#1, A$
+		\> PRINT "Text: " A$
+		\> CLOSE#1
+
+``INPUT$() FUNCTION
+The INPUT$ Function 
+
+INPUT$(nbr, [#]fnbr)
+
+Will return a string composed of 'nbr' characters read from a 
+file previously opened for INPUT with the file number 'fnbr'. 
+This function will read allcharacters including carriage returns 
+and new lines without translation. The # is optional.
+
+When reading from a serial communications port this will return
+as many characters as are waiting in the receive buffer up to 'nbr'
+If there are no characters waiting it will return immediately with 
+an empty string. 
+
+	See also:  OPEN
+
+		Example
+
+		\> OPEN "OUT1.TXT" FOR input AS #1
+		\> A4 = INPUT$(80, #1)
+		\> PRINT "Text: " A$
+		\> CLOSE#1
+
+``LEN$()
+The LEN$ Function 
+
+LEN$(string$) 
+
+Will return the number of characters in 'string$'.
+
+Any non-printing characters and blanks are counted.
+
+	Example
+
+		\> X$="PORTLAND, OREGON"
+		\> PRINT LEN(X$)
+		\> RUN
+ 		  16
+
+Note that the comma and space are included in the character count
+of 16.
+
+``LET
+The LET Command
+
+The LET variable= expression command assigns the value of
+'expression' to the variable.
+
+LET is automatically assumed if a statement does not start with
+a command.
+
+	Example
+
+		\> LET A=10
+		\> PRINT A
+		\> RUN
+		  10
+
+		\> A=10
+		\> PRINT A
+		\> RUN
+		  10
+
+``LINE
+The LINE Command 
+
+LINE[(x1,y1)] - (x2,y2)[,c[,B[F]]] 
+
+Draws a line or box on the video screen.
+
+x1,y1 and x2,y2 specify the beginning and end points of the line.
+ 
+	
+c specifies the displayed pixel (0=off, non zero=on) and defaults to
+on if not specified.
+
+(x1,y1) is optional and if omitted the last drawing point will be
+used.
+ 
+ 
+The optional B will draw a box with the points (x1,y1) and (x2,y2) at
+opposite corners.
+
+The optional BF will draw a box (as,B) and will fill the interior.
+
+``LINE INPUT
+The LINE INPUT Command 
+
+LINE INPUT [prompt$] string-variable$
+
+This command reads the entire line from the keyboard into
+'string-variable$'. The optional 'prompt$' will be printed first.
+Unlike INPUT, LINE INPUT will read a whole line, not stopping for
+comma delimited data items.
+
+A question mark is not printed unless it is part of "prompt$".
+
+LINE INPUT #nbr,string-variable$
+
+This command is the same as the previous one execpt that the input
+is read from a file previously opened for INPUT as 'nbr'. 
+
+	See also OPEN, INPUT.
+
+	Example
+
+		\> OPEN "OUT1.TXT" FOR input AS #1
+		\> LINE INPUT#1, A$
+		\> PRINT "Text: " A$
+		\> CLOSE#1
+
+``LIST
+The LIST Command 
+
+LIST
+LIST line
+LIST -lastline
+LIST firstline-
+LIST firstline - lastline
+
+Lists all lines in a program or a range of lines.
+
+If -lastline is used it will start with with the first line in the
+program.
+
+If startline- is used it will list to the end line of the program.
+
+	Example
+
+		LIST 10
+		LIST 10-
+		LIST -100
+		LIST 10-50
+
+``LOAD
+The Load Command 
+
+The LOAD file$ command loads a program called 'file$' from the
+default drive into working memory.
+
+Quotation marks are required around a string constant, although
+you can omit the trailing quotation mark in this command.
+
+If an extension is not specified, '.BAS' will be appended to the
+filename.
+
+	See also: CWD, CHDIR, DRIVE, FILES, MKDIR, RMDIR, RUN, SAVE
+
+		
+	Example
+
+		\> LOAD "TEST.BAS
+		\> LOAD "TEST
+
+If an extension is not specified, '.BAS' will be appended to the
+filename.
+
+``LOADBMP
+The LOADBMP Command 
+
+LOADBMP "FILE.BMP",x,y,mode
+
+The LOADBMP command loads and show bmp. file on screen.
+Defaults to loading BMP with top left corner at 0,0 unless
+x and y are specified. Optional mode allows BMP to be
+inverted (white=black etc) if mode < 128.
+	
+	
+	Example
+
+		\>  CLS
+		\>  ?
+ 		\>  ? "This is just for showing how LOADBMP works"
+		\>  SAVEBMP "BMPTEST.BMP"
+		\>  CLS
+		\>  LOADBMP "BMPTEST.BMP",50,50,127  
+		\>  REM Shows inverted screenshot 50px in and 50px down.
+
+``LOADABLE FONTS
+Loadable Fonts 
+
+This section describes the format of a font file that can be loaded
+using the FONT LOAD command. 
+
+A font file is just a text file containing ordinary characters which
+are loaded line by line to build the bitmap of each character in the
+font.  Each character can be up to 64 pixels high and 255 pixels wide.
+Up to 255 characters can be defined in a font. 
+
+The first non comment line in the file must be the specifications for
+the font as follows:  
+
+height, width, start, end 
+
+Where 'height' and 'width' are the size of each character in pixels,
+'start' is the number in the ASCII chart where the first character
+sits and 'end' is the last character. Each number is separated by a
+comma.  So, for example: 
+
+16, 11, 48, 57
+
+means that the font is 16 pixels high and 11 pixelswide. The first
+character is decimal 48 (the zero character) and the last is 57
+(number nine character). 
+
+The remainder of the lines specify the bitmap for each character.  
+
+Each line represents a horizontal row of pixels.  A space means 
+the pixel is not illuminated and any other character will turn 
+the pixel on.  If the font is 11 pixels wide there must be 11 
+characters in the line.  The first line is the top row of pixels 
+in the character, the next is the second and so on.  If the 
+character is 16 pixels high there must be 16 lines to define the 
+character.  This repeats until each character is drawn.  Using 
+the above example of a font 16x11 with 10 characters there must 
+be a total of 160 lines with each line 11 characters wide.  
+This is in addition to the specification line at the top. 
+
+A comment line has an apostrophe (') as the first character and 
+can occur anywhere.  A comment line is completely ignored, all 
+other lines are significant. 
+
+The following example creates two small icons, a smiley face 
+and a frowning face.  Each is 11x11 pixels with the first 
+(the smiley face) in the position of the zero character (0) 
+and the frowning face in the position of number one (1).  
+
+To display a smiley face your program would contain this: 
+
+	\> FONT LOAD "FACES.FNT" AS #6  ' load the font 
+	\> FONT #6                      ' select the font 
+	\> PRINT "0"                    ' print a smiley face 
+
+The font file would contains this:
+
+' example 
+' FACES.FNT 
+11,11,48,49 
+            
+			    XXX     
+			  XX   XX   
+			 XX     XX  
+			XX  X X  XX 
+			X         X 
+			XX X   X XX 
+			 X  XXX  X  
+			  XX   XX   
+			    XXX     
+            
+            
+			    XXX     
+			  XX   XX   
+			 XX     XX  
+			XX  X X  XX 
+			X         X 
+			XX  XXX  XX 
+			 X X   X X  
+			  XX   XX   
+			    XXX     
+
+                
+``LOC() FUNCTION
+The LOC Function 
+
+LOC([#]nbr)
+
+Will return the number of bytes waiting inthe receive buffer of 
+a serail port (ie: COM1: or COM:2) that has been opened as #nbr.
+
+The # is optional.
+
+ 'nbr' is the file number used when the serial port was opened. When
+transmitting or receiving a file through a communication port, LOC
+returns the number of characters in the input buffer waiting to be
+read. The default size for the input buffer is 127 characters. 
+
+If there are more than 127 characters received only the last 127
+remain in the buffer, LOC returns 127. 
+
+If fewer than 127 characters remain in the buffer, then LOC returns
+the actual count.
+
+	Example
+
+		\>  IF LOC(#1) = 5 THEN 300
+
+The program branches to line 300 after 5 characters are read.
+
+``LOCATE
+The Locate Command 
+
+The LOCATE x,y command positions the cursor to a location in pixels
+and the next PRINT command will place its output at this location.
+
+	
+Note: This only affects the video output.
+
+	Example
+
+		\>  LOCATE 1,1
+		\>  PRINT "TOP LEFT!"
+
+``LOG() FUNCTION
+The LOG Function 
+
+The LOG(nbr) function returns the natural logarithm of the argument
+'nbr'.
+
+'nbr' must be a number greater than zero.
+
+
+	Examples
+
+		\> PRINT LOG(2)
+		  0.693147
+
+		\> PRINT LOG(1)
+		  0
+
+		\> PRINT LOG(0.0001)
+		 -9.21034
+
+``ON
+The ON Command 
+
+ON variable [GOTO|GOSUB] line[,line,line..]
+
+ON either branches (GOTO) or calls a subroutine (GOSUB) based on the
+rounded value of variable: if it is 1, the first line is called, if 2
+the second line is called etc...
+
+	Example
+
+		\> 10 INPUT "Enter a number between 1 and 3 "; A
+		\> 20 ON A GOTO 1000,2000,3000
+		\> 30 END
+		\> 1000 PRINT "Line 1000" : GOTO 10
+		\> 2000 PRINT "Line 2000" : GOTO 10
+		\> 3000 PRINT "Line 3000" : GOTO 10
+		\> RUN
+		Enter a number between 1 and 3 ? 2.3
+		Line 2000
+
+``ONE WIRE 1W 1-WIRE ONE-WIRE ONEWIRE
+One Wire
+
+Many thanks to Mr. Gerard Sexton for writing the "One Wire" command.
+
+There are now 4 commands and 2 functions:
+
+OWRESET pin [,presence]
+OWWRITE pin, flag, length, data [, data…]
+OWREAD pin, flag, length, data [, data…]
+OWSEARCH pin, srchflag, ser [,ser…]
+
+The OWRESET and OWSEARCH commands (and the OWREAD and OWWRITE 
+commands if a reset is requested) set the MM.OW variable:
+
+ 1 = OK (presence detected, search successful) else 0 = Fail 
+	        (presence not detected, search unsuccessful).
+
+Where:
+
+ pin - the MMBasic I/O pin to use
+
+ presence - an optional variable to receive the presence pulse 
+	    (1 = device response, 0 = no device response)
+
+ flag - a combination of the following options:
+
+1 - send reset before command
+2 - send reset after command
+4 - only send/recv a bit instead of a byte of data
+8 - invoke a strong pullup after the command (the pin will be set 
+    high and open drain disabled)
+
+length - length of data to send or receive
+
+data - data to send or receive
+
+srchflag - a combination of the following options:
+
+1 - start a new search
+2 - only return devices in alarm state
+4 - search for devices in the requested family (first byte of ser)
+8 - skip the current device family and return the next device
+16 - verify that the device with the serial number in ser is available
+   
+If srchflag = 0 (or 2) then the search will return the next device found
+
+ser - serial number (8 bytes) will be returned (srchflag 4 and 16 will 
+      also use the values in ser)
+
+After the command is executed, the pin will be set to the NOT_CONFIGURED 
+state unless flag option 8 is used.
+
+The data and ser arguments can be a string, array or a list of variables.
+
+OWCRC8(len, cdata [, cdata…])    Processes the cdata and returns the 8 bit CRC
+OWCRC16(len, cdata [, cdata…])   Processes the cdata and returns the 16 bit CRC
+
+Where:
+
+ len - length of data to process
+
+cdata - data to process
+
+The cdata can be a string, array or a list of variables.
+
+An example of using the code to read the temperature (and all registers) 
+from a DS18B20 (with external power) and search and verify the serial number:
+
+================================================
+
+  Code Example
+
+
+10  dim ar(10)
+20  p = 18
+30  owreset p,presence:? "Presence: ";presence;
+35  precision = 3 : gosub 500
+40  owwrite p,1,2,&hcc,&h44
+50  for i = 1 to 12000
+60   owread p,4,1,b
+70   if b = 1 then
+80    if (i mod 8) = 0 then exit for
+90   endif
+100 next
+120 owwrite p,1,2,&hcc,&hbe
+130 owread p,2,9,ar(0)
+140 ? ", Data: (";ar(0);",";ar(1);",";ar(2);",";ar(3);",";ar(4);",";ar(5);","
+           ;ar(6);",";ar(7);",";ar(8);
+150 owreset p,presence:? " ), Presence: ";presence
+155 ? "CRC: ";owcrc8(9,ar(0))
+160 tl = ar(0) : th = ar(1)
+170 if (th and &h80) then
+190  temp = ((tl and &h0f) * 0.0625) + ((tl and &hf0) / 16) + 
+            ((th and &h07) * 16) - 128
+200 else
+220  temp = ((tl and &h0f) * 0.0625) + ((tl and &hf0) / 16) + 
+            ((th and &h07) * 16)
+230 endif
+240 tempf = ((temp * 9) / 5) + 32
+250 ? "Temp: ";temp;"C, ";tempf;"F"
+260 owsearch p,1,ar(0)
+262 if mm.ow = 0 then
+264  ? "Search failed"
+266 else
+270  do while mm.ow = 1
+280   ? "Serial number: (";ar(0);",";ar(1);",";ar(2);",";ar(3);",";ar(4);",";
+            ar(5);",";ar(6);",";ar(7);" )"
+290   owsearch p,0,ar(0)
+300  loop
+310 endif
+320 owsearch p,16,ar(0)
+330 if mm.ow = 1 then
+340  ? "Serial number: (";ar(0);",";ar(1);",";ar(2);",";ar(3);",";ar(4);",";
+            ar(5);",";ar(6);",";ar(7);" )"
+350 else
+360  ? "Verify failed"
+370 endif
+390 end
+500 if precision = 4 then
+510  owwrite p,1,5,&hcc,&h4e,&h00,&h00,&h7f
+520 elseif precision = 3 then
+530  owwrite p,1,5,&hcc,&h4e,&h00,&h00,&h5f
+540 elseif precision = 2 then
+550  owwrite p,1,5,&hcc,&h4e,&h00,&h00,&h3f
+560 else
+570  owwrite p,1,5,&hcc,&h4e,&h00,&h00,&h1f
+580 endif
+590 return
+
+``OPEN
+The OPEN Command 
+
+OPEN fname$ FOR mode AS [#]fnbr 
+
+Will open a file on the default drive for reading and writing. 
+'fname$' is the filename(8 chars max) with an optional extension
+(3 chars max) separatedby a dot(.). 'mode' is INPUT or OUTPUT or 
+APPEND. 
+
+INPUT will open the file for reading and throw an error if the 
+file doesn't exist.
+
+OUTPUT will open the file for writing and will automatically
+overwrite any existing file with the same name. 
+
+APPEND will open the file for writing but it will not overwrite an
+existing file, instead any writes to the file will be appended 
+to the end of the file. If there is no existing file the APPEND 
+option will act the same as the OUPUT mode (ie the file is created
+then opened for writing). 'fnbr' is the file number (1 to 10).
+The # is optional. Up to 10 files can be open simultaneously. 
+
+The INPUT, LINE INPUT, PRINT, WRITE and CLOSE commands as well as the
+EOF() and INPUT$() functions all use 'fnbr' to identify the file being
+operated on.
+
+		Example
+
+		\> OPEN "out1.txt" FOR input AS #1
+		\> LINE INPUT#1, A$
+		\> PRINT "Text: " A$
+		\> CLOSE#1
+
+``OPEN COM
+The OPEN [comspec] Command 
+
+OPEN "COMn:[speed][,buf,FC][,OC]" AS [#]fnbr
+
+n is the serial port number (1 to 4);
+
+baud is the speed (75, 150, 300, 600, 1200, 2400, 4800, 9600, 19200)
+
+The default is 1200 baud;
+
+buf is the communications buffer size in bytes. The default is 128.
+
+FC enables hardware flow control on COM1:.
+
+This command opens a serial port for reading and writing. There are 4
+serial ports. COM1: and COM2: are bit-banged in software and are 
+therefore limited to a top speed of 19200 bps, while COM3: and COM4:
+are implemented in hardware with a reliable top speed of 115200 bps.
+--------------------------------------------------------------------
+CONFIRM PINS FOR MODULE
+--------------------------------------------------------------------
+COM1: uses GPIO pin 13 for receive data, GPIO pin 14 for transmit data
+ and if flow control is specified GPIO pin 15 for RTS and GPIO pin 16
+	for CTS.
+
+	COM2: uses GPIO pin 17 for recieve data, GPIO pin 18 for transmit data
+
+	COM3: uses UEXT pin 4 for recieve data, UEXT pin 3 for transmit data
+
+	COM4: uses GPIO pin 11 for recieve data, GPIO pin 12 for transmit data
+----------------------------------------------------------------------
+	 
+If the port is opened using 'fnbr' the port can be written to
+and read from using any commands or functions that use a file number.
+
+OPEN "COMn:[speed][,buf,FC][,OC]" AS CONSOLE
+
+A serial port can be opened with 'AS CONSOLE'. In this case any data
+recieved will be treated the same as keystrokes recieved from the
+keyboard and any characters sent to the video output will also be
+transmitted via the serial port. This enables the remote control of
+MMBasic via a serial interface.
+
+	Examples
+
+		OPEN "COM1:" AS 1
+		OPEN "COM1:2400" AS #2
+		OPEN "COM1:2400" AS CONSOLE
+
+``MEMORY
+The MEMORY Command 
+
+The MEMORY command will list the amount of memory currently in use.
+
+Program memory is cleared by the NEW command. Variable, array and 
+string memory is cleared by many commands (eg NEW, RUN, LOAD, etc)
+as well as CLEAR and ERASE. 
+
+	Example
+
+		\> MEMORY
+		     5kB (17%) Program memory used
+		     3kB (16%) Variable memory used
+		     2kB (30%) Array and string memory used
+
+``MERGE
+The MERGE Command 
+
+The MERGE file$ command adds program lines from 'file$' to the
+program in memory. Unlike LOAD, it does not clear the program
+currently in memory.
+
+	 
+Note that the line numbers of the merged program lines will replace
+those of the already loaded program if they conflict.
+
+``MID$()
+The MID$ Function 
+
+MID$(string$,start-position-in-string[,number-of-chars])
+
+MID$ returns a substring of 'string$' beginning at
+'start-position-in-string' and continuing for 'number-of-chars'
+bytes. If 'number-of-chars' is omitted, the returned string
+will extend to the end of 'string$'
+
+'start-position-in-string' must be in the range 1 to 255.
+'number-of-chars' must be in the range 0 to 255.
+
+If 'number-of-chars' is omitted, or if there are fewer than
+'number-of-chars' characters to the right of 'start-position-
+in-string', all rightmost characters beginning with 'start-position
+in-string' are returned.
+
+If [start-position-in-string] > LEN(x$), MID$ function returns a null
+string.
+
+If [number-of-chars] equals 0, the MID$ function returns a null string.
+
+If either [start-position-in-string] or [number-of-chars] is out of
+range, a "Number out of bounds" error is returned.
+
+	See also: INSTR, LEFT$(), RIGHT$()
+
+		Example
+
+		\>  A$="GOOD"
+		\>  B$="MORNING EVENING AFTERNOON"
+		\>  PRINT A$; MID$(B$, 8, 8)
+		\> RUN
+ 		 GOOD EVENING
+
+The PRINT A$ line concatenates (joins) the A$ string to another 
+string with alength of 8 characters, beginning at position 8 within 
+the B$ string.
+
+``MKDIR
+The MKDIR Command 
+	 
+MKDIR dir$ 
+
+Will make, or create, the directory dir$ on the default drive (A: is the 
+internal FLASH drive and B: is the microSD card if present).
+
+	See also: CWD, CHDIR, DRIVE, FILES, NAME, RMDIR
+
+	Example
+
+		\> DRIVE "B:"
+		\> MKDIR "HELP"
+		\> FILES
+		  Directory: \
+		  HELP                 <DIR>
+
+``NAME
+The NAME Command 
+
+The NAME old$ AS new$ command will rename a file or a directory
+	on 
+the SD card from old$ to new$
+
+	See also: DRIVE, FILES, KILL, LOAD, RUN, SAVE
+
+		
+	Example
+
+		NAME "OUT1.TXT" AS "OUT2.TXT"
+
+
+``NEW
+The NEW Command 
+
+The NEW command will delete the program in memory and clear all
+variables.
+
+``OCT$()
+The OCT$ Function 
+
+OCT$(number)  
+
+Will return a string giving theoctal (base 8) representation 
+of 'number'.
+
+'number' is rounded to an integer before OCT$(number) is 
+evaluated. OCT$ converts decimal values within the range 
+of ±1677100 to an octal string expression.
+
+Octal numbers are numbers in base 8 rather than base 10 
+(decimal numbers).
+
+	See also: HEX$()
+
+		Example
+
+		\> PRINT OCT$(18)
+ 		 22
+
+``PIN
+The PIN Command 
+
+The PIN (pin)= value command. For a 'pin' configured as digital
+output this will set the output to low ("value" is zero) or high
+("value" non zero). You can set an output high or low before it
+is configured as an output and that setting will be the default
+output when the SETPIN command takes effect. 
+
+'pin' zero is a  special case and will always control the green LED 
+used for micro SD card accesses.
+
+A "value" of non zero will turn the LED on, or zero for off.
+
+See the function PIN() for reading from a pin and the command
+SETPIN for configuring it.
+
+	Example
+
+        \> DO
+		\> PIN(0) = 1 'Turn on green LED
+		\> PAUSE 500  'wait 500ms
+		\> PIN(0) = 0 'Turn off green LED
+		\> PAUSE 500  'wait 500ms
+		\> LOOP	 'and again
+         
+``PIN() FUNCTION
+The PIN Function 
+
+The PIN(pin) function returns the value on the external I/O 'pin'.
+Zero means digital low, 1 means digital high and for analog inputs
+it will return the measured voltage as a floating point number.
+
+Frequency inputs will return the frequency in Hz (maximum 200KHz)
+A period input will return the period in milliseconds while a
+count input will return the count since reset (counting is done
+on the rising edge). The count input can be reset to zero by
+resetting the pin to counting input (even if it is already so
+configured).
+
+'pin' zero is a special case which will always return the state
+of the bootload push button in the PC board (non zero means that
+the button is down).
+
+	Also see the SETPIN and PIN commands. 
+
+	Example
+
+        \> DO
+		\> SETPIN 1,8
+		\> PIN(1) = PIN(0)
+		\> LOOP
+
+The above program will cause a LED connected via a suitable
+current-limiting resistor to GPIO pin 1 and GND to light ON when
+the User button is pressed.
+
+``PIXEL
+The PIXEL Command 
+
+The PIXEL(x,y) = value command will set a pixel on a VGA or composite
+screen to off (if the value is zero) or on (if the value is non zero).
+
+See the function PIXEL(x,y) for obtaining the value of a pixel.
+
+Coordinates are specified in pixels. 'x' is a pixel on the horizontal
+axis and 'y' is a pixel on the vertical axis.
+
+The x and y axis start at the top left of the screen which is 
+defined as location 0,0.  The location of the bottom right of the
+screen is defined by the read-only variables MM.HRES (the horizontal
+x axis) and MM.VRES (the vertical y axis). These variables change
+depending on the selected video mode (VGA or composite). For a VGA
+screen, x=480 and y=432.
+
+	Example
+
+		\> FOR x = 1 TO 80
+		\> FOR y = 1 TO 40
+		\> PIXEL(x,y)=1
+		\> NEXT x,y
+
+This program draws a solid rectangle at the top left of the screen.
+
+``PIXEL() FUNCTION
+The PIXEL Function 
+
+The PIXEL(x,y) function returns the value of a pixel on the VGA or
+composite screen.  Zero is off, 1 is on. 
+
+	Example
+
+		\> FOR x = 1 to 20 STEP 2
+		\> PIXEL(x,1) = 1
+		\> NEXT x
+		\> FOR x = 1 to 20
+		\> PRINT PIXEL(x,1);
+		\> NEXT x
+		\> RUN
+		  1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0
+
+``PLAYMOD
+The PLAYMOD Command 
+
+PLAYMOD file [, dur]
+or
+PLAYMOD STOP
+
+Play synthesised music or sound effects. 'file' specifies
+a file which must be located on the internal drive A: and 
+must be in the .MOD format. 
+
+'dur' specifies the duration in milliseconds that the audio 
+will play for  -if not specified it will play until explicitly 
+stopped or the program terminates. The audio is synthesised in 
+the background and is not disturbed by the running program.
+
+The command PLAYMOD STOP will immediately halt any music or 
+sound effect that is currently playing.
+	
+NOTE: The file needs to be located on the internal drive A: for 
+performance reasons, it will not play from the SD card.
+
+``POKE
+The POKE Command 
+
+The POKE hiword, loword, val command will set a byte within the PIC32
+virtual memory space to 'val'. "hiword" is the top 16 bits of the
+address while "loword" is the bottom 16 bits.
+
+	THIS COMMAND IS FOR EXPERT USERS ONLY
+
+The PIC32 maps all control registers, flash (program) memory and
+volatile (RAM) memory into a single address space so there is no need
+for INP or OUT commands. The PIC32MX5XX/6XX/7XX family data sheet
+lists the details of this address space while the source code will
+provide the symbolic names used in the firmware and Maximite.map file
+(produced after a successful compile) will list addresses of these
+symbols. These addresses will change with each version of the firmware
+so programs should use the predefined variable MM.VER to determine 
+the currently running MMBasic version.
+
+WARNING: If you use this facility to access an invalid memory address
+the MIPS CPU will throw an exception which causes the processor to
+reset and clear all memory. to see this effect try POKE 100,1000,100.
+To completely reset the CPU after the above POKE, you will need
+to cycle the power.
+
+	See also: PEEK
+
+``PORT
+The PORT Command 
+
+PORT(start, nbr) = value 
+
+Set a number of I/O consecutive pinssimultaneously (ie, with 
+one command).
+
+'start' is an I/O pin number and the lowest bit in 'value' 
+(bit 0) will be used to set that pin.  Bit 1 will be used to 
+set the pin 'start' plus 1, bit 2 will set pin 'start'+2 and 
+so on for 'nbr' number of bits.  The I/O pins used must be 
+numbered consecutively and configured as outputs before this 
+command is used.
+
+	For example; PORT(4, 8) = &B10000011
+
+Will set eight consecutive I/O pins starting with pin 4. 
+Pins 4, 5 and 11will be set high while 6 to 10will be set to a 
+low.
+
+This command can be used to conveniently communicate with parallel
+devices like LCD displays. Any number of I/O pins (and therefore 
+bits) can be used from 1 pinup to 23 pins. 
+
+
+See the PORT function to simultaneously read from a number of pins. 
+
+``POS() FUNCTION
+The POS Function
+
+The POS function will return the current cursor position in a line.
+
+	Example
+
+    \> DO
+	\> CLS
+	\> A$ = INKEY$ : IF A$ = "" THEN GOTO 30 ELSE PRINT A$;
+	\> IF POS > 10 THEN PRINT CHR$(13);CHR$(10);
+	\> LOOP
+
+Causes a carriage return and line feed after the 10th character 
+is printed on each line of the screen.
+
+``PRINT
+The PRINT Command 
+
+PRINT expression [[,;]expression]...
+
+This command outputs text to the screen. Multiple expressions can be
+used and must be separated by either:
+
+Comma (,) which will output the tab character
+
+Semicolon (;) which will not output anything (it is just used to
+	      separate expressions).
+
+Nothing or a space which will act the same as a semicolon.
+
+A semicolon(;) at the end of the expression list will surpress the
+automatic output of a carriage return/newline at the end of a print
+statement.
+
+When printed, a number is preceded with a space if postive
+or a minus(-) if negative but is not followed by a space. Integers
+(whole numbers) are printed without a decimal point while fractions
+are printed with the decimal point and significiant decimal digits.
+Large numbers (greater than six digits) are printed in scientific
+format
+
+The function FORMAT$() can be used to format numbers. The
+function TAB() can be used to space to a certain column and the
+string functions can be used to justify or otherwise format strings.
+
+A single question mark (?) can be used as a shortcut for the PRINT
+keyword.
+
+The PRINT #nbr, expression [[,;] expression]...
+
+Is the same as the above command except that the output is directed
+to a file previously opened for OUTPUT or APPEND as "nbr".
+
+	Example
+
+		\> PRINT "Hello world"
+		 Hello world
+
+		\> ? "Hello world"
+		 Hello world
+
+``PULSE
+The PULSE Command 
+
+PULSE pin, width 
+
+Will generate a pulse on 'pin' with duration of 'width' mS.
+
+'width' can be a fraction. For example, 0.01 is equal to 10 µS
+	 
+ This enables the generation of very narrow pulses.
+
+The generated pulse is of the opposite polarity to the state 
+of the I/O pin when the command is executed. For example, 
+if the output is set high the PULSE command will generate a 
+negative going pulse.
+
+
+Notes:  For a pulse of less than 3 mS the accuracy is ± 1 µS.
+
+For a pulse of 3 mS or more the accuracy is ± 0.5 mS.
+
+'pin' must be configured as an output.  
+
+``PWM
+The PWM Command 
+
+PWM freq
+or
+PWM STOP
+
+Generate a pulse width modulated (PWM) output for driving 
+analogue circuits.
+
+ ‘freq’ is the output frequency (between 20 Hz and 1 MHz) .The 
+frequency can be changed at any time by issuing a new PWM command.
+
+The output will run continuously in the background while the program 
+is running and can be stopped using the PWM STOP command.
+
+
+The PWM output is generated on the PWM/sound connector and that 
+assumes that the connector has been wired for PWM output. The 
+frequency of the output is locked to the PIC32 crystal and is very 
+accurate and for frequencies below 100 KHz the duty cycle will be 
+accurate to 0.1%.
+
+``OPERATORS PRECEDENCE
+Operators and Precedence 
+
+The following operators, in order of precedence, are 
+recognised.  Operators that are on the same level (for 
+example + and -) are processed with a left to right 
+precedence as they occur on the program line. 
+
+Arithmetic operators: 
+
+	^  Exponentiation 
+
+	* / \ MOD  Multiplication, division, integer division 
+                   and modulus (remainder) 
+
+	+  -  Addition and subtraction 
+ 
+		Logical operators: 
+
+	NOT  logical inverse of the value on the right 
+
+	<>    <    >    <=    =<   >=    => 
+
+Inequality, less than, greater than, less than or equal to, 
+less than or equal to (alternative version), greater than or 
+equal to, greater than or equal to (alternative version) 
+=  equality AND    OR    XOR  Conjunction, disjunction, 
+exclusive or.
+
+The operators AND, OR and XOR are bitwise operators.  
+For example PRINT 3 AND 6 will output 2. 
+
+The other logical operations result in the number 0 (zero) 
+for false and 1 for true.  For example, the statement  
+PRINT 4 >= 5 will print the number zero on the output and 
+the expression A = 3 > 2 will store +1 in A. 
+
+The NOT operator is highest in precedence so it will bind 
+tightly to the next value.  For normal use the expression to 
+be negated should be placed in brackets.  For example,  
+IF NOT (A = 3 OR A = 8) THEN … 
+
+String operators: 
+
+	+  Join two strings 
+
+	<>    <    >    <=    =<    >=    => 
+
+Inequality, less than, greater than, less than or equal to, 
+less than or equal to (alternative version), greater than or 
+equal to, greater than or equal to (alternative version) 
+=  equality. 
+
+``OPTION
+The OPTION Command 
+
+OPTION BASE [0|1]
+
+Sets the lowest value for array subscripts to either 0 or 1. The
+default is 0. This must be used before any arrays are declared.
+
+OPTION ERROR [ABORT|CONTINUE]
+
+Sets the treatment for errors in file input/output. The option
+
+CONTINUE will cause MMBasic to ignore file related errors. 
+
+The program must check the variale MM.ERRNO to determine if and
+what error has occured. The option ABORT sets the normal behaviuor
+(ie stop the program and print an error message. The default
+is ABORT. Note that this option only relates to errors reading
+or writing from the micro SD card, it does not affect the handling
+of syntax and other program errors.
+
+OPTION PROMPT string$
+
+Set the command prompt to the contents of 'string$' (which
+can also be an expression which will be evaluated when the prompt
+is printed.)
+
+	 For Example
+
+	   OPTION PROMPT "OK"
+	   OPTION PROMPT TIME$ + ":"
+	   OPTION PROMPT CWD$ +":"
+
+ Maximum length of the prompt string is 48 characters. The prompt
+is reset to the default ('>') on power up but you can automatically
+set it by saving the following example program as "AUTORUN.BAS" on
+the internal flash driveA:
+
+          \> OPTION PROMPT "My prompt:"
+          \> NEW
+
+	  
+OPTION Fnn string$
+
+	 
+Sets the prgrammable function keys 'Fnn' to the contents of'string$'
+"Fnn" is the function key F1 to F12. Maximum string length is 12
+characters. "string$" can also be an expression that will be evaluated
+at the time of running the OPTION command. This is most often used
+to append the ENTER key (chr$(13)), or double quotes (chr$(34)).
+
+	  For Example
+
+	    OPTION F1 "RUN" + CHR$(13)
+	    OPTION F6 "SAVE" + CHR$(34)
+	    OPTION F10 "ENDIF"
+
+Normally these commands are included in an AUTORUN.BAS file (see
+OPTION PROMPT) for an example.
+
+	OPTION USB OFF
+	or
+	OPTION USB ON
+
+Turn the USB output off and on. This disables/enables the output 
+ from the PRINT command from being sent out on the USB interface. It 
+does not affect the reception of characters from the USB interface.
+
+Normally this is used when a program wants to separately display data 
+on the USB and video interfaces. This option is always reset to ON at 
+the command prompt.
+
+	OPTION VIDEO OFF
+	or
+	OPTION VIDEO ON
+
+VIDEO OFF prevents the output from the PRINT command from being 
+displayed on thevideo output (VGA or composite). The VIDEO ON 
+option will revert to the normal action.
+Normally this is used when a program wants to separately display data 
+on the USB and video outputs. This option is always reset to ON at the 
+command prompt.
+
+``PAUSE
+The PAUSE Command 
+
+The PAUSE nbr command will halt execution of the running program
+for "nbr" milliseconds. The maximum value of 'nbr' is 4294967295
+(about 49 days).
+
+	Example
+
+		\> PRINT "Start wait"
+		\> PAUSE 2000
+		\> PRINT "Stop wait"
+
+``COMMAND LINE PARAMETERS PCLINE
+The program command-line Command 
+                         
+Implied RUN command.
+
+At the command promptit is possible to omit the RUN 
+keyword and MMBasic will search the default drive and 
+directory for amatching program and iffound,it will be run.
+
+'program' is the program name. If there is no extension the 
+extension .BAS will be automatically appended.
+
+'command -line' is an arbitrary string of characters which 
+can be retrieved by the new program usingthe read only 
+variable MM.CMDLINE$.
+
+	Example:
+
+	SORTINFILE.TXT OUTFILE.TXT
+
+Will run the program SORT.BAS and the variable MM.CMDLINE$ will 
+hold the string: "INFILE.TXT OUTFILE.TXT" 
+
+Notes:
+
+The implied RUN command is valid only at the command prompt 
+(not within a running program).
+
+If 'program' is already in memory it will be run directly without 
+reloading it from disk (even if it has been edited).
+
+If 'program' is the same as an internal MMBasic command the 
+internal command will be run instead. To avoid this 'program' can 
+be surrounded by quote marks. Eg: "PRINT" command line.
+
+If MM.CMDLINE$returns an empty string this means that a 
+command line was not provided and the new program should then 
+prompt for the parameters that it needs.
+
+To avoidaccidently overwriting a program that you are working on 
+an error will be generated if the program needs to be loaded from 
+disk and the program currently in memory has been edited butnot 
+saved. If this happens (and you do not want to save the program
+currently in memory) use the NEW command to clear the memory.
+
+``PEEK() FUNCTION
+The PEEK Function 
+
+The PEEK(hiword,loword) function will return a byte within the PIC32
+virtual memory space. 'hiword' is the top 16 bits of the address and
+'loword' is the bottom 16 bits.
+
+	See also: POKE
+
+	Example
+
+		\> FOR X = &HD250 to &H1378F
+		\> PRINT PEEK(&HA000,X)
+		\> NEXT X 
+
+	Dumps video memory.
+
+See the POKE command for notes and warnings related to
+memory access.
+
+``RIGHT$()
+The RIGHT$ function 
+
+The RIGHT$(string$,number-of-chars) function returns a substring of
+'string$' with 'number-of-chars' from the right (end) of the string. 
+
+If 'number-of-chars' is equal to or greater than LEN(string$), RIGHT$
+returns 'string$'. If 'number-of-chars' equals zero, the null string
+(length zero) is returned.
+
+	
+ See also: INSTR, LEFT$(), MID$()
+
+	Example
+
+		\> A$="DISK BASIC"
+		\> PRINT RIGHT$(A$, 5)
+		\> RUN
+ 		 BASIC
+
+``RMDIR
+The RMDIR Command 
+
+The RMDIR dir$ command will remove, or delete, the directory dir$ on
+the default drive (A: is the internal FLASH drive and B: is the
+micro SD card if present).
+
+Note: You cannot remove a directory which contains a file(s). You
+must first delete the file(s) from the directory.
+
+	See also: CWD, CHDIR, DRIVE, FILES, MKDIR, NAME
+
+		
+	Example
+
+		\> FILES
+		 Directory: \
+		 HELP                 <DIR>
+		 TEST                 <DIR>
+		 MORTGAGE.BAS          1381
+		 TEST.BAS               133
+		\> RMDIR "TEST"
+		
+		\> FILES
+		 
+		 Directory: \
+		 HELP                 <DIR>
+		 MORTGAGE.BAS          1381
+		 TEST.BAS               133
+
+``RND() FUNCTION
+The RND Function 
+
+The RND(nbr) function returns a pseudo random number in the range of
+0 to 0.99999.  The 'nbr' value is ignored if supplied. The RANDOMIZE
+command reseeds the random number generator. 
+
+To get a random number within the range of zero through n, use the
+following formula: INT(RND*(n+1))
+
+Examples
+
+	\> PRINT RND
+ 	   0.513871
+
+	\>PRINT RND(-1)
+           0.94763
+
+	\>PRINT INT(RND*101) 'prints random number 0 - 100
+ 	  53
+
+	\>PRINT RND (1) 'prints 2 nos due to space between RND and (1)
+ 	  0.175726 1
+
+``RUN
+The RUN Command 
+
+The RUN [line|file$] command will execute the program in memory.
+If a line number is supplied, then excucution begins at that line.
+Or, if a filename (file$) in quotation marks is supplied, the current
+program will be erased and that program will be loaded from the
+default drive and executed. This enables one program to load and run
+another.
+
+If an extension is not specified, '.BAS' will be appended to the
+filename. You can also omit the trailing quotation mark.
+
+	 Note: You cannot specify a line number AND a filename.
+
+	See also: LOAD
+
+``SAVE
+The SAVE Command 
+
+The SAVE [file$] command saves the program in the current working
+directory of the default drive (internal flash drive A: or micro SD
+card drive B:) as 'file$'. The file name is optional and if omitted
+the last filename used in SAVE, LOAD or RUN will be used automatically.
+
+If an extension is not specified, ".BAS" will be added to the
+filename automatically.
+
+	See also: CWD, CHDIR, DRIVE, FILES, LOAD, MKDIR, RMDIR, RUN
+
+``SAVEBMP
+The SAVEBMP Command 
+
+The SAVEBMP file$ command saves the current VGA or composite screen
+as a BMP file in the current working directory on the default drive.
+(The internal FLASH is drive A:, the micro SD card, if installed, is
+drive B:).
+
+If an extension is not specified, ".BMP" will be appended to the
+filename automatically.
+
+	Example
+
+		\> SAVEBMP "IMAGE.BMP"
+
+Note that Windows 7 Paint has trouble displaying the image. This
+appears to be a bug in Paint as all the software tested (including
+windows XP Paint) can display the image without fault.
+
+``SERIAL COMMUNICATIONS UART
+Serial Communications 
+
+Four serial ports are available for asynchronous serial 
+communications. They are labeled COM1:, COM2:, COM3: and COM4: and
+are opened in a manner similar to opening a file on the micro SD card.
+After they have been opened they will have an associated file number
+(like an opened disk file) and you can use any commands that operate
+with a file number to read and write to/from the serial port. 
+
+Finally the serial port can be closed using the CLOSE command. 
+
+The following is an example: 
+
+ 	 \> OPEN "COM1:9600" AS #3 'open serial port
+ 	 \> PRINT #3, "HELLO"      'send hello
+ 	 \> DATA$ = INPUT$(20,#3)  'read up to 20 characters
+ 	 \> CLOSE #3
+  	 \> SETPIN 2,8             'PIN(2) as Tx digital output 
+
+-----------------------------------------------------------------
+NEED TO CONFIRM ON MODULE
+	
+Pin assignments: 
+
+----------------------------------------------------------------
+
+When a serial port is opened the pins used by the port are 
+automatically set to input or output as required and the SETPIN 
+and PIN commands are disabled for the pins. When the port is 
+closed (using the CLOSE command) all pins used by the serial 
+port will be set to a not configured state and the SETPIN command 
+can then be used to reconfigure them.
+
+COM1: and COM2:  are implemented with bit-bang by MMBasic and 
+maximum speed is 19200 bps, COM3: and COM4:  are real UARTs and 
+maximum speed is 8,000,000 bps (speed over 115200 bps is not 
+reliable in practice).
+
+A serial port can be opened with "AS CONSOLE". In this case any 
+data received will be treated the  same as keystrokes received 
+from the keyboard and any characters sent to the video output 
+will also be transmitted via the serial port. This enables the 
+remote control of MMBasic via a serial interface. 
+
+The signal polarity is standard for devices running at TTL 
+voltages (not RS232). Idle is voltage high, the start bit is 
+voltage low, data uses a high voltage for logic 1 and the stop 
+bit is a high voltage. 
+
+The flow control pins (RTS and CTS) use a low voltage to signal 
+stop sending data and high as OK to send. The RS232 connector 
+have MAX3232 driver which translates the TTL levels to RS232 
+levels 12V. 
+
+	Reading and Writing 
+
+Once a serial port has been opened you can use any commands or 
+functions that use a file number to write and read from the port. 
+Generally the PRINT command is the best method for transmitting 
+data and the INPUT$() function is the most convenient way of 
+getting data that has been received. When using the INPUT$() function 
+the number of characters specified will be the maximum number of 
+characters returned but it could be less if there are fewer characters
+in the receive buffer. In fact the INPUT$() function will immediately 
+return an empty string if there are no characters available in the 
+receive buffer. 
+
+The LOC() function is also handy, it will return the number of 
+characters waiting in the receive buffer (ie, the number characters 
+that can be retrieved by the INPUT$() function). The EOF() function 
+will return true if there are no characters waiting. 
+
+The LOF() function will return the space (in characters) remaining 
+in the transmit buffer. 
+
+When outputting to a serial port (ie, using PRINT #) the command 
+will pause if the output buffer is full and wait until there is 
+sufficient space to put the new data in the buffer before returning. 
+If the receive buffer overflows with incoming data the serial port 
+will automatically discard the oldest data to make room for the new 
+data. 
+
+Serial ports can be closed with the CLOSE command. This will discard 
+any characters still in the buffers, return the buffer memory to the 
+memory pool and set all pins used by the port to the not configured 
+state. A serial port is also automatically closed when commands such 
+as RUN and NEW are issued. 
+
+	Opening a Serial Port as the Console 
+
+A serial port can be opened as the console for MMBasic. The command 
+is: OPEN "COMn:..." AS CONSOLE. 
+
+In this case any characters received from the serial port will be 
+treated the same as keystrokes received from the keyboard and any 
+characters sent to the video output will also be transmitted via the 
+serial port. This enables a user with a terminal at the end of the 
+serial link to exercise remote control of MMBasic. For example, via 
+a modem. 
+
+ Note that only one serial port can be opened AS CONSOLE at a time 
+and it will remain open until closed using the CLOSE CONSOLE 
+command. It will not be closed by commands such as NEW and RUN. 
+
+``SETPIN
+The SETPIN Command
+
+The SETPIN pin,cfg command will configure the external I/O 'pin'
+according to 'cfg'.
+
+ 0 Not configured or inactive
+ 1 Analog Input				(pins 1 to 10)
+ 2 Digital Input	(all pins and 5V tolerant on pins 11 to 20)
+ 3 Frequency Input				(pins 11 to 14)
+ 4 Period Input				(pins 11 to 14)
+ 5 Counting input				(pins 11 to 14)
+ 6 Interrupt on low to high change		(all pins)
+ 7 Interrupt on high to low change		(all pins)
+ 8 Digital Output				(all pins)
+ 9 Open collector digital output to 5v	(pins 11 to 20)
+
+See the PIN() function for reading inputs and the PIN command for 
+outputs. See the command below if an interrupt is configured.
+
+SETPIN pin,cfg,line will configure 'pin' to generate an interrupt
+according to 'cfg' and execute an interrupt routine starting at 'line'.
+
+ 0 Not configured or inactive"
+ 6 Interrupt on low to high input change   (all pins)
+ 7 Interrupt on high to low input change   (all pins)
+
+The starting line number of the interrupt routine is specified in
+the third parameter 'line'. This mode also configures the pin as a
+digital input so the value of the pin can always be retrieved using
+the function PIN().
+
+	See also IRETURN to return from the interrupt.
+
+``SETTICK
+The SETTICK Command 
+
+The SETTICK period,line command sets up a periodic interrupt (or
+tick). The time between interrupts is 'period' milliseconds and 'line'
+is the line number of the interrupt routine. The period can range
+from 1 to 4294967295 mSec (about 49 days). The interrupt can be
+disabled by setting 'line' to zero (ie: SETTICK 0,0).
+
+	Example
+
+		\> SETTICK 500,80
+		\> ...
+		\>  'Empty interrupt routine, just returns
+		\>  IRETURN
+
+``RANDOMIZE
+The RANDOMIZE Command 
+
+The RANDOMIZE nbr command seeds the random number generator with "nbr".
+To generate a different random sequence each time you must use a
+different value for 'nbr'. One good way to do this is use the TIMER
+function.
+On power up RANDOMIZE is automatically seeded from the current time and
+its later use in the program normally is not necessary.
+
+	Example
+
+		\> RANDOMIZE TIMER
+		\> PRINT RND
+		\> RUN
+		   0.377598
+
+``REM
+The REM Command 
+
+The REM string command allows remarks to be included in a program.
+Lines n a program which begin with a REM statement are not executed.
+
+ Note the Microsoft convention of using a single quotation mark to 
+denote remarks is also supported and is preferred.
+
+	Examples
+
+		\> REM  My Program V1.0 billy@hill.com
+
+		\> ' This is a remark
+
+``RENUMBER
+The RENUMBER Command 
+
+RENUMBER
+RENUMBER first
+RENUMBER first,incr
+RENUMBER first,incr,start
+
+The RENUMBER command will renumber the program currently held in
+memory including all references to line numbers in commands such
+as GOTO, GOSUB, ON etc. 
+
+'first' is the number to be used in the new sequence. Default is 10. 
+
+'start' is the line number in the old program where renumbering should
+commence from. The default is the first line of the program.
+
+This command will first check for errors that my disrupt the
+renumbering process and it will only change the program in memory
+if no errors are found. However, it is prudent to save the program
+before running this command in case there are some errors that are
+not caught.
+
+	Examples
+
+		\> RENUMBER
+		\> RENUMBER 100
+		\> RENUMBER 1,1
+		\> RENUMBER 10,20,100
+
+``RESTORE
+The RESTORE Command 
+
+The RESTORE command resets the line and position counters for DATA
+and READ statements to the top of the program file.
+
+	Example
+
+		\> DIM A(4) :  DIM B(4)
+		\> FOR I = 0 TO 4
+		\> READ A(I)
+		\> PRINT A(I);
+		\> NEXT I
+		\> RESTORE 'delete line to see difference
+		\> FOR I = 0 TO 4
+		\> READ B(I)
+		\> PRINT B(I);
+		\> NEXT I
+		\> DATA 0,1,2,3,4,5,6,7
+		\> RUN
+		  0 1 2 3 0 1 2 3
+
+``RETURN
+The RETURN Command 
+
+The RETURN command ends a subroutine called by a GOSUB.
+
+``SIM$() FUNCION
+The SIM$() Function
+
+SIM$( string1$, string2$ ) returns a number between 0 and 1 which
+represents the calculated similarity between the two strings.
+
+``SPEED
+The SPEED Command
+
+SPEED changes the processor clock frequency and configures sleep
+mode thus allowing lower current consumption whenever that is possible.
+Not all peripherals are supported in some modes and composite video
+output will not work properly in any other than mode 9.
+
+Format:
+    SPEED mode [,wumask]
+
+"mode" is one of the following modes:
+0: sleep (expects a "wumask" parameter or assumes 0 as default value)
+1: 1MHz (no USB, no video)
+2: 8MHz (no USB, no video)
+3: 24MHz (no video)
+4: 32MHz
+5: 40MHz
+6: 48MHz
+7: 60MHz
+8: 72MHz
+9: 80MHz
+
+"wumask" applies only in mode 0 and specifies the wake up sources.
+NOTE: The PS/2 keyboard is always enabled as a wake up source.
+bit 0: rising or falling edge of P0
+bit 1: rising or falling edge of P1
+bit 2: rising or falling edge of P9
+bit 3: falling edge of P10
+bit 4: falling edge of P11
+bit 5: falling edge of P12
+bit 6: falling edge of P13
+bit 7: falling edge of LDFW; internal pull-up resistor
+
+``SPI() FUNCTION
+The SPI Function 
+
+The SPI(rx, tx, clk[, data[, speed]]) function sends and receives
+a byte using the SPI protocol with MMBasic as the master (ie it
+generates the clock).
+
+'rx' is the GPIO port number for the data input (aka MISO 
+master-input slave-output)
+
+'tx' is the GPIO port number for the data output (aka MOSI 
+master-output slave-input)
+
+'clock' is the GPIO port number for the clock generated by 
+MMBasic (aka CLK) 
+
+'data' is optional and is an integer representing the data byte 
+to send over the data output pin. If it is not specified the 
+tx pin will be held low as if the data is 0. 
+
+'speed' is optional and is the speed of the clock. It is a single 
+letter either H, M or L where H is 500KHz, M is 50KHz and L is 
+5KHz. Default is H. 
+
+	Example
+
+		\> SETPIN 1,2 'define Rx as input
+		\> SETPIN 2,8 'define Tx as output
+		\> SETPIN 3,8 'define clock as output 
+		\> PRINT SPI(1,2,3,255,H) 'send FF and receive one byte
+		\> RUN
+ 		  255
+
+``SPI COMMUNICATIONS
+SPI Communications
+	 
+The Serial Peripheral Interface (SPI) communications  protocol is
+used to send and receive data between integrated circuits. As
+implemented this function is suitable for moving small amounts of
+data to and from a chip like an accelerometer but not for shifting
+large amounts of data from EEPROMS, etc. The SPI function in MMBasic
+acts as the master (ie MMBasic generates the clock). 
+
+The syntax of the SPI function is: 
+
+received_data = SPI(rx,tx,clock[,data[,speed]])
+
+ Where: 
+
+'rx' is the pin number for the data input (MISO)
+
+  'tx' is the pin number for the data output (MOSI) 
+
+ 'clock' is the pin number for the clock generated by MMBasic (CLK) 
+
+  'data' is optional and is an integer representing the data byte to 
+	 send over the output pin. If it is not specified the 'tx' pin 
+	 will be held low.
+ 
+  'speed' is optional and is the speed of the clock. It is a single 
+	  letter either H, M or L where H is 500KHz,  M is 50KHz and 
+	  L is 5KHz. Default is H. M is 50KHz and L is 5KHz. Default is H
+
+The SPI function will return the byte received during the transaction 
+as an integer. Note that a single SPI transaction will send a byte 
+while simultaneously receiving a byte (which is often discarded).
+
+ Transmission Format: 
+
+The format of the transmission matches the most common standard. The 
+clock is high when inactive and the data is valid on the clock's 
+trailing edge (ie, low to high transition). Data bytes are 8 bits, 
+high voltage is logic 1 and the most significant bit is sent first. 
+
+In SPI parlance the MMBasic implementation of SPI has CPOL = 1 and 
+CPHA = 1 or it operates in mode 3. 
+
+ I/O Pins: 
+
+Before invoking this function the Rx pin must be configured as an 
+input using the SETPIN command and the Tx and clock pins must be 
+configured as outputs (either normal or open collector). The clock 
+pin should also be set high (using the PIN function) before the 
+SETPIN command so that it starts as inactive (ie, high). 
+
+The SPI enable signal is often used to select a slave and "prime" 
+it for data transfer. This signal is not generated by this function 
+and (if required) should be generated using the PIN function on 
+another pin. 
+
+The SPI function does not "take control" of the I/O pins like the 
+serial and I2C protocols and the PIN command will continue to operate 
+as normal on them. Also, because the I/O pins can be changed between 
+function calls it is possible to communicate with many different SPI 
+slaves on different I/O pins. 
+
+	Example 
+
+   		\> SETPIN 1,2 'PIN(1) as Rx digital input
+   		\> SETPIN 2,8 'PIN(2) as Tx digital output 
+   		\> PIN(3) = 1: SETPIN 3,8 'PIN(3) clock as output 
+   		\> PIN(4) = 1: SETPIN 4,8  'PIN(4) as slave select
+   		\> PIN(4) = 0 'slave select
+   		\> junk = SPI(1,2,3,&H80) 'send &H80
+   		\> BYTE1 = SPI(1,2,3) 'read first byte
+   		\> BYTE2 = SPI(1,2,3) 'read second byte
+   		\> PIN(4) = 1 'slave de-select
+
+This program sends the command &H80 and receive two bytes from the
+slave SPI device. Because the speed is not specified it defaults to
+	high (500KHz). 
+
+``SQR() FUNCTION
+The SQR function
+
+The SQR(nbr) function returns the square root of the argument 'nbr'.
+
+'nbr' must be greater than or equal to 0.
+
+	Example
+
+		\> FOR X=10 TO 25 STEP 5
+		\> PRINT X; SQR(X)
+		\> NEXT
+		\> RUN
+ 		  10 3.16228
+		  15 3.87298
+		  20 4.47214
+		  25 5
+
+``STR$()
+The STR$ Function
+
+The STR$(nbr) command returns a string in the decimal (base 10)
+representation of 'nbr'.
+
+See also: VAL(string$).
+
+      Example
+
+      \> INPUT "TYPE A NUMBER: ", N
+      \> PRINT "THIS IS A ";LEN(STR$(N));" DIGIT NUMBER"
+      \> RUN
+       TYPE A NUMBER: 123 
+       THIS IS A 3 DIGIT NUMBER
+
+``SGN() FUNCTION
+The SGN Function 
+
+The SGN(nbr) function returns the sign of 'nbr'. When 'nbr' is
+< 0, -1 is returned; when 'nbr' is = 0, 0 is returned; when 'nbr'
+is > 0, 1 is returned.
+
+	Example
+
+		\> INPUT "Enter value", x
+		\> ON SGN(X)+2 GOTO 100, 200, 300
+
+MMBasic branches to 100 if X is negative, 200 if X is 0, and 300 if
+X is positive.
+
+``SIN() FUNCTION
+The SIN Function 
+
+The SIN(number) function returns the sine of the  argument 'number'
+in radians. 
+
+To obtain SIN(x) when x is in degrees, use SIN(x*pi/180).
+
+	Example
+
+		\> PRINT SIN(1.5)
+		   0.997495
+
+The sine of 1.5 radians is 0.997495.
+
+``SOUND
+The SOUND Command 
+
+SOUND freq,dur
+SOUND freq,dur,duty
+
+The SOUND command will generate a single tone of 'freq' (between 20Hz
+to 1MHz) for 'dur' milliseconds. The sound is played in the background
+and does not stop program execution.
+
+If 'dur' is zero any active SOUND statement is turned off. If no SOUND
+statement is running, a 'dur' of zero has no effect. 
+
+'duty' is the optional duty cycle of the waveform in percent. If it is
+close to zero the output will be a narrow positive pulse. If it is not
+specified the duty cycle will default to 50%. Setting the duty cycle
+allows the sound output to be used as a Pulse Width Modulation (PWM)
+output for driving analog circuits.
+
+The signal will be avaliable at the sound connector and the voltage
+divider on this output should be removed so the full signal level
+is available. The frequency of the output is locked to the PIC32
+crystal and is very accurate and for frequencies below 100KHz the
+duty cycle will be accurate to 0.1%.
+
+``SPACE$()
+The SPACE$ Function 
+
+The SPACE$(nbr) function returns a string of blank spaces 'nbr'
+bytes long.
+
+'nbr' is rounded to an integer and must be within the range of 0 to 255. 
+If the number is outside this range error, then the error message 	
+"Error: Number out of bounds" results.
+
+	Example
+
+		\> FOR N=1 TO 5
+		\> X$=SPACE$(N)
+		\> PRINT X$; N
+		\> NEXT N
+		\> RUN
+		   1
+		    2
+		     3
+		      4
+		       5
+
+	The second line adds one space for each loop execution.
+
+``SPC() FUNCTION
+The SPC Function 
+
+The SPC(number) function returns a string of blank spaces
+'number' bytes long.  This function is similar to the SPACE$()
+function and is only included for Microsoft compatibility. 
+
+'number' must be within the range of 0 to 255.
+
+If 'number' is greater than the defined width of the 
+printer or the screen, the value used will be n MOD 
+width.
+
+	Example
+
+		\> PRINT "OVER" SPC(15) "THERE"
+ 		 OVER               THERE 
+
+``TRON TROFF
+The TRON Command 
+
+The TRON turns on the trace facitlity. This facility prints each
+line number in square brackets as the program is executed. This is 
+useful in debugging programs.
+
+The TROFF command turns off the trace facility.
+
+``TIME$
+The TIME$ Function
+
+Returns the current timebased on the RTCC as a string 
+in the form "HH:MM:SS" in 24 hour notation. For example, 
+“14:30:00”.
+
+To set the current time use the command TIME$ = 
+
+``TIMER COMMAND
+The TIMER Command 
+
+The TIMER=msec command resets the timer to a number of milliseconds.
+Normally this is just used to reset the timer to zero but you can
+set it to any positive integer. See the TIMER function for more details.
+
+``TIMER FUNCTION
+The TIMER Function 
+
+The TIMER function returns the elapsed time in milliseconds
+(eg 1/1000 of a second) since reset. If not specifically reset this
+count will wrap around to zero after 49 days. 
+
+The timer is reset to zero on power up and you can also reset it by
+using TIMER as a command. 
+
+``TAN() FUNCTION
+The TAN Function 
+
+The TAN(nbr) function returns the tangent of the argument 'nbr' in
+radians. 
+
+To obtain TAN(x) when x is in degrees, use TAN(x*pi/180).
+
+	Example
+
+		\> Y = TAN(X)
+
+When executed, Y will contain the value of the tangent of 
+X radians.
+
+``TAB() FUNCTION
+The TAB Function 
+
+The TAB(nbr) function outputs spaces until the column indicated by
+'nbr' has been reached.
+
+If the current print position is already beyond column  'nbr', TAB
+goes to that position on the next line.
+
+Column 1 is the leftmost position. The rightmost position is the
+screen width. 'nbr' must be within the range of 1 to 255.
+
+It is as though the TAB function has an implied semicolon 
+after it. TAB may be used only in PRINT and PRINT # statements.
+
+	Examples
+
+		\> PRINT "HELLO" TAB(10) "WORLD"
+		\> RUN
+		 HELLO
+	   	   WORLD
+
+		\>  PRINT "HELLO" TAB(3) "WORLD"
+		\> RUN
+		 HELLO    WORLD
+
+``STRING$()
+The STRING$ Function 
+
+The STRING$( nbr,ascii-value|string$ ) function returns a string
+'nbr' bytes long consisting of either the first character of string$
+or the character representing the ASCII value ascii-value. 
+
+STRING$(n,j)
+STRING$(n,x$)
+
+STRING$ is also useful for printing top and bottom borders on the 
+screen. n and j are integer expressions in the range 0 to 255.
+
+	Example
+
+		\> X$ = STRING$(10, 45)
+		\> PRINT X$ "MONTHLY REPORT" X$
+		\> RUN
+ 		 ----------MONTHLY REPORT----------
+
+45 is the decimal equivalent of the ASCII symbol for the minus 
+(-) sign.
+
+``XMODEM
+The XMODEM Command 
+
+XMODEM SEND file$
+XMODEM RECIEVE file$
+
+The XMODEM command transfers a file to or from a remote computer using
+the XModem protocol. The transfer is done over the USB connection or,
+if a serial port is opened as console, over that serial port. "file$" is
+the file on the micro SD card or internal flash to be sent or recieved.
+The XModem protocol requires a co-operating software program running
+on the remote computer and connected to its serial port. It has been
+tested on Tera Term running on Windows and it is recommended that this
+be used. After running the XMODEM command in MMBasic select:
+
+  		
+ FILE->Transfer->XMODEM->Recieve/Send
+
+from the Tera Term menu to start the transfer. The transfer can take
+up to 15 seconds to start if the XMODEM command fails to establish
+communications it will return to the MMBasic prompt after 30 seconds.
+
+``VAL() FUNCTION
+The VAL Function 
+
+The VAL(string$) returns the numerical value of the 'string$'.
+If 'string$' is an invalid number the function will return zero.
+This function will recognise the &H prefix for a hexadecimal number, 
+&O for octal and &B for binary.
+
+If the first character of x$ is not numeric, VAL(x$) will return zero.
+
+The STR$ function (for numeric to string conversion) is the complement
+to the VAL(x$) function.
+
+``UCASE$()
+The UCASE$ Function 
+
+The UCASE$(string$) function returns string$ converted to uppercase
+characters.
+
+	See also: LCASE
+
+	Example
+
+		\> PRINT UCASE$("qWeRTyUIop")
+		\> QWERTYUIOP
+
+``INIT
+The INIT Command
+
+The INIT [drive$] command initialised (better known as formatting) the
+specified in the parameter drive. Initialisation destroys all the information
+on the drive and prepares it for its use.
+When executed on drive A:, the command erases the whole dedicated flash area.
+When executed on drive B:, the command formats the microSD card automatically
+selecting the best file system among FAT12, FAT16 or FAT32, and names the 
+volume MMDRIVE
+
+    See also: FILES, KILL
+
+``DEFINED SUBROUTINES
+
+Defined subroutines and functions are useful features to 
+help in organising programs so that they are easy to modify 
+and read. A defined subroutine or function is simply a block 
+of programming code that is contained within a module and 
+can be called from anywhere within your program. It is the 
+same as if you have added your own command or function to 
+the language.
+For example, assume that you would like to have the command 
+FLASH added to MMBasic, its job would be to flash the power 
+light on the Module. You could define a subroutine like this:
+
+Sub FLASH
+Pin(0) = 1
+Pause 100
+Pin(0) = 0
+End Su
+b
+Then, in your program you just use the command FLASH to flash 
+the power LED. For example:
+IF A <= B THEN FLASH
+If the FLASH subroutine was in program memory you could even try 
+it out at the command prompt, just like any command in MMBasic. 
+The definition of the FLASH subroutine can be anywhere in the 
+program but typically it is at the start or end. If MMBasic runs 
+into the definition while running your program it will simply
+skip over it.
+
+Subroutine Arguments
+
+Defined subroutines can have arguments (sometimes called parameter 
+lists). In the definition of the subroutine they look like this:
+
+Sub MYSUB (arg1, arg2$, arg3)
+<statements>
+<statements>
+End Sub
+
+And when you call the subroutine you can assign values to the 
+arguments. 
+For example:
+
+          MYSUB 23,
+          "Cat", 55
+
+Inside the subroutine arg1 will have the value 23, arg2$ the value 
+of "Cat" and so on. The arguments act like ordinary variables but 
+they exist only within the subroutine and will vanish when the 
+subroutine ends. You can have variables with the same name in the 
+main program and they will be different from arguments defined
+for the subroutine (at the risk of making debugging harder).
+When calling a subroutine you can supply less than the required 
+number of values. 
+For example:
+
+MYSUB 23
+
+In that case the missing values will be assumed to be either zero 
+or an empty string. For example, in the above case arg2$ will be 
+set to "" and arg3 will be set to zero. This allows you to have 
+optional values and, if the value is not supplied by the caller,
+you can take some special action.
+
+You can also leave out a value in the middle of the list and the 
+same will happen. 
+For example:
+
+MYSUB 23, , 55
+
+Will result in arg2$ being set to "".
+
+Local Variables
+
+Inside a subroutine you will need to use variables for various tasks. 
+In portable code you do not want the name you chose for such a 
+variable to clash with a variable of the same name in the main program. 
+To this end you can define a variable as LOCAL.
+For example, this is our FLASH subroutine but this time we have extended 
+it to take an argument (nbr) that specifies how many times to flash the 
+LED.
+
+Sub FLASH ( nbr )
+Local count
+For count = 1 To nbr
+Pin(0) = 1
+Pause 100
+Pin(0) = 0
+ Pause 150
+Next count
+End Sub
+
+The counting variable (count) is declared as local which means that 
+(like the argument list) it only exists within the subroutine and will 
+vanish when the subroutine exits. You can have a variable called
+count in your main program and it will be different from the variable
+count in your subroutine.
+If you do not declare the variable as local it will be created within 
+your program and be visible in your main program and subroutines, just 
+like a normal variable.
+You can define multiple items with the one LOCAL command. If an item is
+an array the LOCAL command will also dimension the array (ie, you do not 
+need the DIM command). 
+For example:
+
+LOCAL NBR, STR$, ARR(10, 10)
+
+You can also use local variables in the target for GOSUBs. For example:
+
+GOSUB MySub
+...
+MySub:
+LOCAL X,
+Y
+FOR X = 1 TO ...
+FOR Y = 5 TO ...
+<statements>
+RETURN
+
+The variables X and Y will only be valid until the RETURN statement is 
+reached and will be different from variables with the same name in the 
+main body of the program.
+
+Defined Functions
+
+Defined functions are similar to defined subroutines with the main 
+difference being that the function is used to return a value in an 
+expression.
+For example, if you wanted a function to select the maximum of two values
+you could define:
+
+Function Max(a, b)
+If a > b
+Max = a
+Else
+Max = b
+EndIf
+End Function
+
+Then you could use it in an expression:
+
+SetPin 1, 1 : SetPin 2, 1
+Print "The highest voltage is" Max(Pin(1), Pin(2))
+
+The rules for the argument list in a function are similar to subroutines. 
+The only difference is that brackets are required around the argument 
+list when you are calling a function (they are optional when calling a
+subroutine).
+To return a value from the function you assign a value to the function's 
+name within the function. If the function's name is terminated with a $ 
+the function will return a string, otherwise it will return a number.
+Within the function the function's name acts like a standard variable.
+As another example, let us say that you need a function to format time
+in the AM/PM format:
+Function MyTime$(hours, minutes)
+Local h
+h = hours
+If hours > 12 Then h = h - 12
+MyTime$ = Str$(h) + ":" + Str$(minutes)
+If hours <= 12 Then
+MyTime$ = MyTime$ + "AM"
+Else
+MyTime$ = MyTime$ + "PM"
+EndIf
+End Function
+
+As you can see, the function name is used as an ordinary local variable 
+inside the subroutine. It is only whenthe function returns that the value 
+assigned to MyTime$ is made available to the expression that called it.
+This example also illustrates that you can use local variables within 
+functions just like subroutines.
+
+Passing Arguments by Reference
+
+If you use an ordinary variable (ie, not an expression) as the value 
+when calling a subroutine or a function, the argument within the 
+subroutine/function will point back to the variable used in the call 
+and any changes to the argument in your routine will also be made to 
+the supplied variable. This is called passing arguments by
+reference.
+For example, you might define a subroutine to swap two values, as
+follows:
+Sub Swap a, b
+Local t
+t = a
+a = b
+b = t
+End Sub
+In your calling program you would use variables for both arguments:
+Swap nbr1, nbr2
+And the result will be that the values of nbr1 and nbr2 will be swapped.
+Unless you need to return a value via the argument you should not use 
+an argument as a general purpose variable inside a subroutine or function. 
+This is because another user of your routine may unwittingly use a
+variable in their call and that variable will be "magically" changed by your
+routine. It is much safer to assign
+the argument to a local variable and manipulate that instead.
+
+Additional Notes
+
+There can be only one END SUB or END FUNCTION for each definition of a 
+subroutine or function. To exit early from a subroutine (ie, before
+the END SUB command has been reached) you can use the EXIT SUB
+command. This has the same effect as if the program reached the END
+SUB statement. Similarly you can use
+EXIT FUNCTION to exit early from a function.
+You cannot use arrays in a subroutine or
+function's argument list however the caller can use them. For
+example, this is a valid way of calling the Swap subroutine 
+(discussed above):
+
+Swap dat(i), dat(i+ 1)
+
+This type of construct is often used in sorting arrays
+
+Loadable Libraries
+
+The use of defined subroutines and functions should reduce the 
+need to add specialised features to MMBasic.
+For instance, there have been a few requests to add bit shifting 
+functions to the language. Now you can do that yourself... this 
+is the right shift function:
+Function RShift(nbr, bits)
+If nbr < 0 or bits < 0 THEN ERROR "Invalid argument"
+RShift = nbr\(2^bits)
+End Function
+
+You can now use this function as if it is a part of the language:
+a = &b11101001
+b = RShift(a, 3)
+After running this fragment of code the variable b would have the 
+binary value of 11101.
+The defined subroutine and function is intended to be a portable 
+lump of code that you can insert in to any program. This is why
+MMBasic has the LIBRARY command which allows you to load files 
+containing user defined subroutines and functions into memory. 
+These functions/subroutines are then available to the running
+program and are indistinguishable from the built-in commands and 
+functions.
+So, it would be easy to create a library of bit manipulation 
+functions like that described above and load them within
+any program that might need them.
+The same for specialised maths functions, drivers for special
+hardware and so on.
+
+``EDIT
+              Editor Help
+
+       This Editor can be used to edit either the program 
+       currently loaded in memory or a program file. It can 
+       also be used to view and edit text data files. 
+
+       The editor can now create new files by typing
+       
+       edit whatever.txt and if whatever isnt a current file it will
+       
+       ask if you want to create the file.
+
+       The editing keys are:
+
+       Left/Right Arrows :-  Moves the cursor within the line.
+
+       Up/Down Arrows :-  Moves the cursor up or down a line.
+
+       Page Up/Down :-  Move up or down a page of the program.
+
+       Home/End :-   Moves the cursor to the start or end of the line. 
+                    A second Home/End will move to the start or end 
+                    of the program.
+
+       Delete :-  Delete the character over the cursor. This can be 
+                 the line separator character and thus join two lines.
+
+       Backspace :-  Delete the character before the cursor.
+
+       Insert :-  Will switch between insert and overtype mode.
+
+       Escape Key :-  Will close the editor without saving (confirms 
+                     first).
+
+       F1 :- Will bring up the help and wait for a keyword to search.
+
+       F2 :- Save, exit and run the program.
+
+       F3 :- Find, Invoke the search function.
+
+       SHIFT F3 :-  Repeat the search using the text entered with F3.
+
+       F4 :-  Marktext for cut or copy (see below).
+
+       F5 :-  Paste text previously cut or copied.
+       
+       F10 :- Run
+
+       CTRL-F :-  Insert a file into the program being edited.
+       
+       When in the mark text mode (entered with F4) the editor will
+       allow you to use the arrow keys t highlight text which can be 
+       deleted, cut to the clipboard or simply copied to the clipboard.
+       The status line will change to indicate the new functions of
+       the function keys.
+       
+       The editor will work with lines wider than the screen but
+       characters beyond the screen edge will not be visible. You
+       can split such a line by inserting a new line character and
+       the two lines can be later rejoined by deleting the inserted 
+       new line character.
+
+``ASCII CODE TABLE
+The ASCII Code Table
+
+Char Dec Oct  Hex  | Char Dec Oct Hex  | Char Dec Oct Hex | Char Dec Oct  Hex
+------------------------------------------------------------------------------
+(nul)  0 0000 0x00 | (sp) 32 0040 0x20 | @   64 0100 0x40 | `     96 0140 0x60
+(soh)  1 0001 0x01 | !    33 0041 0x21 | A   65 0101 0x41 | a     97 0141 0x61
+(stx)  2 0002 0x02 | "    34 0042 0x22 | B   66 0102 0x42 | b     98 0142 0x62
+(etx)  3 0003 0x03 | #    35 0043 0x23 | C   67 0103 0x43 | c     99 0143 0x63
+(eot)  4 0004 0x04 | $    36 0044 0x24 | D   68 0104 0x44 | d    100 0144 0x64
+(enq)  5 0005 0x05 | %    37 0045 0x25 | E   69 0105 0x45 | e    101 0145 0x65
+(ack)  6 0006 0x06 | &    38 0046 0x26 | F   70 0106 0x46 | f    102 0146 0x66
+(bel)  7 0007 0x07 | '    39 0047 0x27 | G   71 0107 0x47 | g    103 0147 0x67
+(bs)   8 0010 0x08 | (    40 0050 0x28 | H   72 0110 0x48 | h    104 0150 0x68
+(ht)   9 0011 0x09 | )    41 0051 0x29 | I   73 0111 0x49 | i    105 0151 0x69
+(nl)  10 0012 0x0a | *    42 0052 0x2a | J   74 0112 0x4a | j    106 0152 0x6a
+(vt)  11 0013 0x0b | +    43 0053 0x2b | K   75 0113 0x4b | k    107 0153 0x6b
+(np)  12 0014 0x0c | ,    44 0054 0x2c | L   76 0114 0x4c | l    108 0154 0x6c
+(cr)  13 0015 0x0d | -    45 0055 0x2d | M   77 0115 0x4d | m    109 0155 0x6d
+(so)  14 0016 0x0e | .    46 0056 0x2e | N   78 0116 0x4e | n    110 0156 0x6e
+(si)  15 0017 0x0f | /    47 0057 0x2f | O   79 0117 0x4f | o    111 0157 0x6f
+(dle) 16 0020 0x10 | 0    48 0060 0x30 | P   80 0120 0x50 | p    112 0160 0x70
+(dc1) 17 0021 0x11 | 1    49 0061 0x31 | Q   81 0121 0x51 | q    113 0161 0x71
+(dc2) 18 0022 0x12 | 2    50 0062 0x32 | R   82 0122 0x52 | r    114 0162 0x72
+(dc3) 19 0023 0x13 | 3    51 0063 0x33 | S   83 0123 0x53 | s    115 0163 0x73
+(dc4) 20 0024 0x14 | 4    52 0064 0x34 | T   84 0124 0x54 | t    116 0164 0x74
+(nak) 21 0025 0x15 | 5    53 0065 0x35 | U   85 0125 0x55 | u    117 0165 0x75
+(syn) 22 0026 0x16 | 6    54 0066 0x36 | V   86 0126 0x56 | v    118 0166 0x76
+(etb) 23 0027 0x17 | 7    55 0067 0x37 | W   87 0127 0x57 | w    119 0167 0x77
+(can) 24 0030 0x18 | 8    56 0070 0x38 | X   88 0130 0x58 | x    120 0170 0x78
+(em)  25 0031 0x19 | 9    57 0071 0x39 | Y   89 0131 0x59 | y    121 0171 0x79
+(sub) 26 0032 0x1a | :    58 0072 0x3a | Z   90 0132 0x5a | z    122 0172 0x7a
+(esc) 27 0033 0x1b | ;    59 0073 0x3b | [   91 0133 0x5b | {    123 0173 0x7b
+(fs)  28 0034 0x1c | <    60 0074 0x3c | \   92 0134 0x5c | |    124 0174 0x7c
+(gs)  29 0035 0x1d | =    61 0075 0x3d | ]   93 0135 0x5d | }    125 0175 0x7d
+(rs)  30 0036 0x1e | >    62 0076 0x3e | ^   94 0136 0x5e | ~    126 0176 0x7e
+(us)  31 0037 0x1f | ?    63 0077 0x3f | _   95 0137 0x5f |(del) 127 0177 0x7f
+
+``COMMANDS
+COMMANDS
+   
+AUTO - BLIT - CHAIN - CIRCLE - CONFIG - CLEAR - CLOSE - CLOSE CONSOLE
+CLS - CONTINUE - COPY - COPYRIGHT - DATA - DATE - DELETE - DIM - DO - DRIVE
+EDIT - ELSE - ELSEIF - ENDIF - END - ERASE - ERROR - EXIT - FILES - FONT
+FOR - FORMAT - FUNCTION - GOSUB - GOTO - IF - INIT - INPUT - IRETURN - KILL
+LET - LINE INPUT - LIST - LOAD - LOADBMP - LOCATE - LOOP - MEMORY - MERGE
+MKDIR - NAME - NEW - NEXT - ON - OPEN - OPEN COM - OPTION - PAUSE - PLAYMOD
+PORT - PIN - PIXEL - POKE - PRINT - PRIORITY - COMMAND LINE - PULSE - RANDOMIZE
+READ - REM - MDIR - RENUMBER - RESET - RESTORE - RETURN - RUN - SPEED - THREAD
+TROFF - TRON - XMODEM
+
+``FUNCTIONS
+FUNCTIONS
+ 
+ABS() - ASC() - ATN() - CHR$() - CINT() - COS() - CWD$ - DATE$ - EOF()
+FIX() - FORMAT$() - HEX$() - INKEY$ - INPUT$ - INSTR() - INT() - LEFT$()
+LEN$() - LOC() - LOF() - LCASE$() - MID$() - OCT$() - PEEK() - PIN() - POS()
+PRIORITY() - PIXEL() - RIGHT$() - RND() - SGN() - SIM$() - SIN() - SPACE$()
+SPI() - SQR() - STR$() - STRING$() - TAB() - TAN() - TIME$ - TIMER - UCASE$
+VAL()
+
+``REVISION CHANGES
+
+	DTX Module Revision Updates
+    
+4.4/R7
+18/10/2013
+
+RESET command
+Fixed all known bugs
+Some implementation characteristics changed for memory optimisation
+Cosmetic improvements
+
+==================================================================
+
+4.4/R6
+01/09/2013
+
+Drive B: can be seen from a host OS when connected via USB
+SPEED command to control clock frequency and sleep modes
+SIM$() function to return the similarity between two strings
+
+==================================================================
+
+4.4/R5
+25/07/2013
+
+Switching to the latest MMBasic V4.4 platform
+THREAD command to run simultaneous threads
+PRIORITY=x command to assign priority to the current thread. PRIORITY can also be a function in the format x=PRIORITY
+
+==================================================================
+
+4.3A/R4
+05/07/2013
+
+Online help in the editor
+HELP command. Format HELP [parameter]
+Support of hidden/systems files in A:. Any file name, which starts with "." is considered "hidden". For example the file .DATA.LOG is hidden, while DATA.LOG is not
+Further improved DIR. Now by specifying parameter 'a', file attributes in B: or all files
+(including the hidden ones) in A:, can be seen
+Example: DIR a or DIR a "*.*" will show all files with their attributes or all hidden files
+Found bugs fixed
+
+==================================================================
+
+4.3A/R3
+04/06/2013
+
+Improved DIR (Files) command
+Added new INIT <drive> command to initialise (erase) the entire A: or B: drive
+Cosmetic corrections across the source
+
+==================================================================
+
+4.3A/R2
+28/05/2013
+
+Drive can be selected immediately now without use of DRIVE command.
+Example: DRIVE A: can be executed as just A:
+RANDOMIZE automatically seeded from the RTC on power up
+Cosmetic corrections across the source
+
+==================================================================
+
+4.3A/R1
+15/05/2013
+
+RX-4571LC support for RTC
+TIME$ and DATE$ use DTX2-4105C's RTC now
+Flash card write protection and card detecttion disabled
+The files command can be executed as DIR.
+The EDIT command can create files
+Changed map of the functional keys in the editor
+Cosmetic corrections across the source
