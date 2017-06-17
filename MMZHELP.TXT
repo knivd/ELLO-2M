@@ -1,3 +1,45 @@
+``HELP
+HELP topic 
+
+MMZ Module Help File 
+
+The help information resides in a single file MMZHELP.TXT which must be located 
+in the root folder of drive A: 
+
+One can bring up any file by simply typing 'help whatever' no (' or ") are 
+required but can be used and the file will come on the screen and not interrupt 
+the program in memory. 
+All file names are in lower case. 
+
+Example 
+
+\>help pause 
+
+Will show the "pause" command, then go back to the command prompt. 
+
+There are some help files where the name is a reserved keyword in MMBasic so if 
+one ends up with the main help screen after pressing enter try using a (") 
+Double Quote in front of the help word. 
+
+Below are a list of the major help pages and one just needs to type the word 
+into the help. T a minor spelling error is done the Help file system will 
+possibly find the relevant file aswell. 
+
+- Editor :- Explains the use of the online Editor 
+- Commands :- Lists all of the Commands used 
+- Functions:- Lists all of the Functions used. 
+- Revision Changes - for The Module :- This includes new commands 
+- Serial Communications 
+- I2C Communications 
+- SPI Communications 
+- One Wire 
+- Interrupts 
+- Loadable Fonts 
+- Operators and Precendence :- typing operator Will start this file 
+- Deprecated Commands 
+- ASCII-DEC-OCT-HEX table 
+- Defined Subroutines and Functions 
+- Multithreading and other specific to ELLO commands and functions 
 
 ``1-Wire
 ONEWIRE RESET pin - Reset the 1-Wire bus 
@@ -33,7 +75,7 @@ Returns the inverse cosine of the argument 'number' in radians.
 ``ASC
 ASC( string$ ) 
 
-Returns the ASCII code for the first letter in the argument â€˜string$â€™. 
+Returns the ASCII code for the first letter in the argument ‘string$’. 
 
 ``ASCII
 The ASCII Code Table 
@@ -209,7 +251,7 @@ See ERASE for deleting specific array variables.
 CLOSE [#]nbr [,[#]nbr] ... 
 
 Close the serial communications port(s) previously opened with the file number 
-â€˜nbrâ€™. The # is optional. Also see the OPEN command. 
+‘nbr’. The # is optional. Also see the OPEN command. 
 
 ``CLS
 CLS [colour] 
@@ -309,12 +351,12 @@ CPU SLEEP
 CPU SLEEP seconds 
 
 Put the CPU to sleep. In this mode the running program will be halted and the 
-current drain reduced to less than 40 Î¼A. 
+current drain reduced to less than 40 ?A. 
 In the first form (CPU SLEEP seconds) the command will put the CPU to sleep for 
 the specified number of 'seconds' (maximum of 10 days). 
 This command will update the TIMER function and internal calendar when it comes 
 out of sleep but note that the sleep time is not very accurate; it can vary by 
-up to Â±20%. 
+up to ±20%. 
 In the second form the WAKEUP pin (see the pinout tables at the start of this 
 manual) will be automatically configured as a digital input and any change in 
 its state (ie, from high to low or low to high) will wakeup the CPU. 
@@ -387,7 +429,7 @@ In the C function the argument will be supplied as a pointer to the first
 element of the array. 
 
 ``DATA
-DATA constant[,constant]â€¦ 
+DATA constant[,constant]… 
 
 Stores numerical and string constants to be accessed by READ. 
 In general string constants should be surrounded by double quotes ("). 
@@ -405,7 +447,7 @@ Set the date of the internal clock/calendar.
 DD, MM and YY are numbers, for example: DATE$ = "28-7-2014" 
 The date is set to "1-1-2000" on power up. 
 
-When used as function, DATE$ returns the current date based on MMBasicâ€™s 
+When used as function, DATE$ returns the current date based on MMBasic’s 
 internal clock as a string in the form "DD-MM-YYYY". For example, "28-07-2012". 
 The internal clock/calendar will keep track of the time and date including leap 
 years. 
@@ -440,7 +482,7 @@ DEG( radians )
 Converts 'radians' to degrees. 
 
 ``DIM
-DIM [type] decl [,decl]â€¦ 
+DIM [type] decl [,decl]… 
 
 where 'decl' is: 
 var [length] [type] [init] 
@@ -625,7 +667,7 @@ F2 - Save, exit and run the program.
 F3 Invoke the search function. 
 SHIFT F3 - Repeat the search using the text entered with F3. 
 F4 - Mark text for cut or copy (see below). 
-F5 â€“ Paste text previously cut or copied. 
+F5 – Paste text previously cut or copied. 
 
 When in the mark text mode (entered with F4) the editor will allow you to use 
 the arrow keys to highlight text which can be deleted, cut to the clipboard or 
@@ -687,7 +729,7 @@ The # is optional. Also see the OPEN, INPUT and LINE INPUT commands and the
 INPUT$ function. 
 
 ``ERASE
-ERASE variable [,variable]â€¦ 
+ERASE variable [,variable]… 
 
 Deletes arrayed variables and frees up the memory. 
 Use CLEAR to delete all variables including all arrayed variables. 
@@ -743,7 +785,7 @@ FOR counter = start TO finish
 Initiates a FOR-NEXT loop with the 'counter' initially set to 'start' and 
 incrementing in 'increment' steps (default is 1) until 'counter' equals 
 'finish'. 
-The â€˜incrementâ€™ can be an integer or floating point number. Note that using a 
+The ‘increment’ can be an integer or floating point number. Note that using a 
 floating point fractional number for 'increment' can accumulate rounding errors 
 in 'counter' which could cause the loop to terminate early or late. 
 'increment' can be negative in which case 'finish' should be less than 'start' 
@@ -873,49 +915,6 @@ With GUI TEST TOUCH the screen will blank and wait for a touch which will cause
 a white dot to be placed on the display marking the touch position on the 
 screen. 
 
-``HELP
-HELP topic 
-
-MMZ Module Help File 
-
-The help information resides in a single file MMZHELP.TXT which must be located 
-in the root folder of drive A: 
-
-One can bring up any file by simply typing 'help whatever' no (' or ") are 
-required but can be used and the file will come on the screen and not interrupt 
-the program in memory. 
-All file names are in lower case. 
-
-Example 
-
-\>help pause 
-
-Will show the "pause" command, then go back to the command prompt. 
-
-There are some help files where the name is a reserved keyword in MMBasic so if 
-one ends up with the main help screen after pressing enter try using a (") 
-Double Quote in front of the help word. 
-
-Below are a list of the major help pages and one just needs to type the word 
-into the help. T a minor spelling error is done the Help file system will 
-possibly find the relevant file aswell. 
-
-- Editor :- Explains the use of the online Editor 
-- Commands :- Lists all of the Commands used 
-- Functions:- Lists all of the Functions used. 
-- Revision Changes - for The Module :- This includes new commands 
-- Serial Communications 
-- I2C Communications 
-- SPI Communications 
-- One Wire 
-- Interrupts 
-- Loadable Fonts 
-- Operators and Precendence :- typing operator Will start this file 
-- Deprecated Commands 
-- ASCII-DEC-OCT-HEX table 
-- Defined Subroutines and Functions 
-- Multithreading and other specific to ELLO commands and functions 
-
 ``HEX$
 HEX$( number [, chars]) 
 
@@ -974,8 +973,8 @@ stop if the bus is still held.
 I2C OPEN speed, timeout [, PU] 
 
 Enables the I 2 C module in master mode. 
-â€˜speedâ€™ is a value between 10 and 400 (for bus speeds 10 kHz to 400 kHz). 
-â€˜timeoutâ€™ is a value in milliseconds after which the master send and receive 
+‘speed’ is a value between 10 and 400 (for bus speeds 10 kHz to 400 kHz). 
+‘timeout’ is a value in milliseconds after which the master send and receive 
 commands will be interrupted if they have not completed. The minimum value is 
 100. A value of zero will disable the timeout (though this is not recommended). 
 'PU' (if specified) will enable weak pullups (about 100K) on both the clock and 
@@ -986,14 +985,14 @@ for short signal lines at slow speed this may be all that is required.
 I2C READ addr, option, rcvlen, rcvbuf 
 
 Get data from the I 2 C slave device. 
-â€˜addrâ€™ is the slave I 2 C address. 
-â€˜optionâ€™ is a number between 0 and 3 (normally this is set to 0) 
+‘addr’ is the slave I 2 C address. 
+‘option’ is a number between 0 and 3 (normally this is set to 0) 
 1 = keep control of the bus after the command (a stop condition will not be sent 
 at the completion of the command) 
 2 = treat the address as a 10 bit address 
 3 = combine 1 and 2 (hold the bus and use 10 bit addresses). 
-â€˜rcvlenâ€™ is the number of bytes to receive. 
-â€˜rcvbufâ€™ is the variable to receive the data - this can be a string variable 
+‘rcvlen’ is the number of bytes to receive. 
+‘rcvbuf’ is the variable to receive the data - this can be a string variable 
 (eg, t$), or a one dimensional array of numbers specified without the dimensions 
 (eg, data()) or a normal numeric variable (in this case rcvlen must be 1). 
 
@@ -1007,17 +1006,17 @@ Disables the slave I 2 C module and returns the external I/O pins 12 and 13 to a
 I2C SLAVE OPEN 
 
 Enables the I 2 C module in slave mode. 
-â€˜addrâ€™ is the slave I 2 C address. 
-â€˜maskâ€™ is the address mask (normally 0, bits set as 1 will always match). 
+‘addr’ is the slave I 2 C address. 
+‘mask’ is the address mask (normally 0, bits set as 1 will always match). 
 This allows the slave to respond to multiple addresses. 
-â€˜optionâ€™ is a number between 0 and 3 (normally this is set to 0). 
+‘option’ is a number between 0 and 3 (normally this is set to 0). 
 1 = allows MMBasic to respond to the general call address. When this occurs the 
 value of MM.I2C will be set to 4. 
 2 = treat the address as a 10 bit address 
 3 = combine 1 and 2 
-â€˜send_intâ€™ is the subroutine to be invoked when the module has detected that the 
+‘send_int’ is the subroutine to be invoked when the module has detected that the 
 master is expecting data. 
-â€˜rcv_int is the subroutine to be called when the module has received data from 
+‘rcv_int is the subroutine to be called when the module has received data from 
 the master. Note that this is triggered on the first byte received so your 
 program might need to wait until all the data is received. 
 
@@ -1028,11 +1027,11 @@ Receive data from the I 2 C master device. This command should be used in the
 receive interrupt (ie in the 'rcv_int' subroutine when the master has sent some 
 data). Alternatively a flag can be set in the receive interrupt subroutine and 
 the command invoked from the main program loop when the flag is set. 
-â€˜rcvlenâ€™ is the maximum number of bytes to receive. 
-â€˜rcvbufâ€™ is the variable to receive the data - this can be a string variable 
+‘rcvlen’ is the maximum number of bytes to receive. 
+‘rcvbuf’ is the variable to receive the data - this can be a string variable 
 (eg, t$), or a one dimensional array of numbers specified without the dimensions 
 (eg, data()) or a normal numeric variable (in this case rcvlen must be 1). 
-â€˜rcvdâ€™ will contain the actual number of bytes received by the command. 
+‘rcvd’ will contain the actual number of bytes received by the command. 
 
 ``I2C SLAVE WRITE
 I2C SLAVE WRITE sendlen, senddata [,sendata....] 
@@ -1041,29 +1040,29 @@ Send the data to the I 2 C master. This command should be used in the send
 interrupt (ie in the 'send_int' subroutine when the master has requested data). 
 Alternatively a flag can be set in the interrupt subroutine and the command 
 invoked from the main program loop when the flag is set. 
-â€˜sendlen is the number of bytes to send. 
-â€˜senddataâ€™ is the data to be sent. This can be specified in various ways, see 
+‘sendlen is the number of bytes to send. 
+‘senddata’ is the data to be sent. This can be specified in various ways, see 
 the I2C WRITE commands for details. 
 
 ``I2C WRITE
 I2C WRITE addr, option, sendlen, senddata [,sendata ....] 
 
 Send data to the I 2 C slave device. 
-â€˜addrâ€™ is the slave I 2 C address. 
-â€˜optionâ€™ is a number between 0 and 3 (normally this is set to 0) 
+‘addr’ is the slave I 2 C address. 
+‘option’ is a number between 0 and 3 (normally this is set to 0) 
 1 = keep control of the bus after the command (a stop condition will not 
 be sent at the completion of the command) 
 2 = treat the address as a 10 bit address 
 3 = combine 1 and 2 (hold the bus and use 10 bit addresses). 
-â€˜sendlenâ€™ is the number of bytes to send. 
-â€˜senddataâ€™ is the data to be sent - this can be specified in various ways (all 
+‘sendlen’ is the number of bytes to send. 
+‘senddata’ is the data to be sent - this can be specified in various ways (all 
 values sent will be between 0 and 255): 
-ï‚· The data can be supplied in the command as individual bytes. 
+? The data can be supplied in the command as individual bytes. 
 Example: I2C WRITE &H6F, 1, 3, &H23, &H43, &H25 
-ï‚· The data can be in a one dimensional array specified with empty brackets (ie, 
+? The data can be in a one dimensional array specified with empty brackets (ie, 
 no dimensions). The data will be written starting with the first element. 
 Example: I2C WRITE &H6F, 1, 3, ARRAY() 
-ï‚· The data can be a string variable (not a constant). 
+? The data can be a string variable (not a constant). 
 Example: I2C WRITE &H6F, 1, 3, STRING$ 
 
 ``IF
@@ -1079,14 +1078,14 @@ IF expression THEN
 <statements>] 
 ENDIF 
 
-Evaluates the expression â€˜expr' and performs the THEN statement if it is true or 
+Evaluates the expression ‘expr' and performs the THEN statement if it is true or 
 
 skips to the next line if false. 
 The optional ELSE statement is the reverse of the THEN test. 
 This type of IF statement is all on one line. 
-The â€˜THEN statementâ€™ construct can be also replaced with: 
+The ‘THEN statement’ construct can be also replaced with: 
 
-GOTO linenumber | labelâ€™. 
+GOTO linenumber | label’. 
 
 Multiline IF statement with optional ELSE and ELSEIF cases and ending with 
 ENDIF. 
@@ -1115,7 +1114,7 @@ INPUT #nbr, list of variables
 
 Allows input to a list of variables 
 Either from the console or from a serial port previously opened for INPUT as 
-â€˜nbrâ€™ (See the OPEN command). 
+‘nbr’ (See the OPEN command). 
 
 The console input command will prompt with a question mark (?). 
 The input must contain commas to separate each data item if there is more than 
@@ -1134,9 +1133,9 @@ If the prompt string is terminated with a comma (,) rather than the semicolon
 ``INPUT$
 INPUT$(nbr, [#]fnbr) 
 
-Will return a string composed of â€˜nbrâ€™ characters read from a serial 
+Will return a string composed of ‘nbr’ characters read from a serial 
 communications port opened as 'fnbr'. This function will return as many 
-characters as are waiting in the receive buffer up to â€˜nbrâ€™. If there are no 
+characters as are waiting in the receive buffer up to ‘nbr’. If there are no 
 characters waiting it will immediately return with an empty string. 
 #0 can be used which refers to the console's input buffer. 
 The # is optional. Also see the OPEN command. 
@@ -1215,7 +1214,7 @@ pin to a not configured state.
 ``LCASE$
 LCASE$( string$ ) 
 
-Returns â€˜string$â€™ converted to lowercase characters. 
+Returns ‘string$’ converted to lowercase characters. 
 
 ``LCD
 LCD INIT d4, d5, d6, d7, rs, en 
@@ -1264,7 +1263,7 @@ the necessary command and data values.
 ``LEFT$
 LEFT$( string$, nbr ) 
 
-Returns a substring of â€˜string$â€™ with â€˜nbr' of characters from the left 
+Returns a substring of ‘string$’ with ‘nbr' of characters from the left 
 (beginning) of the string 
 
 ``LEN
@@ -1305,11 +1304,11 @@ to initialise constants, set options, etc.
 ``LINE
 LINE x1, y1, x2, y2 [, LW [, C]] 
 
-Draws a line starting at the coordinates â€˜x1â€™ and â€˜y1â€™ and ending at â€˜x2â€™ and 
-â€˜y2â€™. 
-â€˜LWâ€™ is the lineâ€™s width and is only valid for horizontal or vertical lines. 
+Draws a line starting at the coordinates ‘x1’ and ‘y1’ and ending at ‘x2’ and 
+‘y2’. 
+‘LW’ is the line’s width and is only valid for horizontal or vertical lines. 
 It defaults to 1 if not specified or if the line is a diagonal. 
-â€˜Câ€™ is an integer representing the colour and defaults to the current foreground 
+‘C’ is an integer representing the colour and defaults to the current foreground 
 colour. 
 
 ``LINE INPUT
@@ -1319,14 +1318,14 @@ string-variable$
 LINE INPUT #nbr, 
 string-variable$ 
 
-Reads an entire line from the console input into â€˜string-variable$â€™. 
-If specified the â€˜prompt$â€™ will be printed first. 
+Reads an entire line from the console input into ‘string-variable$’. 
+If specified the ‘prompt$’ will be printed first. 
 Unlike INPUT, this command will read a whole line, not stopping for comma 
 delimited data items. 
-A question mark is not printed unless it is part of â€˜prompt$â€™. 
+A question mark is not printed unless it is part of ‘prompt$’. 
 
 LINE INPUT #nbr is same as above except that the input is read from a serial 
-communications port previously opened for INPUT as â€˜nbrâ€™. See the OPEN command. 
+communications port previously opened for INPUT as ‘nbr’. See the OPEN command. 
 ``LIST
 LIST 
 or 
@@ -1389,12 +1388,12 @@ MEMORY
 
 List the amount of memory currently in use. 
 Notes: 
-ï‚· General memory is used by serial I/O buffers, etc. 
-ï‚· Program memory is cleared by the NEW command. 
-ï‚· Variables and the general memory spaces are cleared by many commands (eg, NEW, 
+? General memory is used by serial I/O buffers, etc. 
+? Program memory is cleared by the NEW command. 
+? Variables and the general memory spaces are cleared by many commands (eg, NEW, 
 RUN, etc) as well as the specific commands CLEAR and ERASE. 
-ï‚· Memory usage is rounded to the nearest 1K byte. 
-ï‚· When a program is loaded it is first buffered in RAM which limits the maximum 
+? Memory usage is rounded to the nearest 1K byte. 
+? When a program is loaded it is first buffered in RAM which limits the maximum 
 program size. 
 MMBasic tokenises the program when it is stored in flash so the final size in 
 flash might vary from this. 
@@ -1404,9 +1403,9 @@ MID$( string$, start )
 or 
 MID$( string$, start, nbr ) 
 
-Returns a substring of â€˜string$â€™ beginning at â€˜startâ€™ and continuing for â€˜nbrâ€™ 
+Returns a substring of ‘string$’ beginning at ‘start’ and continuing for ‘nbr’ 
 characters. The first character in the string is number 1. 
-If â€˜nbrâ€™ is omitted the returned string will extend to the end of â€˜string$' 
+If ‘nbr’ is omitted the returned string will extend to the end of ‘string$' 
 
 ``MM.DEVICE$
 MM.DEVICE$ 
@@ -1506,8 +1505,8 @@ Deletes the program in flash and clears all variables.
 NEXT [counter-variable] [,counter-variable], etc 
 
 NEXT comes at the end of a FOR-NEXT loop; see FOR. 
-The â€˜counter-variableâ€™ specifies exactly which loop is being operated on. 
-If no â€˜counter-variableâ€™ is specified the NEXT will default to the innermost 
+The ‘counter-variable’ specifies exactly which loop is being operated on. 
+If no ‘counter-variable’ is specified the NEXT will default to the innermost 
 loop. 
 It is also possible to specify multiple counter-variables as in: NEXT x, y, z 
 
@@ -1570,7 +1569,7 @@ OPEN comspec$ AS [#]fnbr
 
 Will open a serial communications port for reading and writing. 
 Two ports are available (COM1: and COM2:) and both can be open simultaneously. 
-Using â€˜fnbrâ€™ the port can be written to and read from using any command or 
+Using ‘fnbr’ the port can be written to and read from using any command or 
 function that uses a file number. 
 
 ``OPTION AUTORUN
@@ -1620,7 +1619,7 @@ OPTION CASE UPPER.
 This option will be remembered even when the power is removed. 
 
 ``OPTION CLOCKTRIM
-OPTION CLOCKTRIM Â±n 
+OPTION CLOCKTRIM ±n 
 
 Trim the frequency of the internal oscillator on the 28 and 44-pin Micromites. 
 This oscillator is used as the basis for all timing (eg, date, time, pause, PWM 
@@ -1636,13 +1635,13 @@ OPTION COLOURCODE ON | OFF
 Turn on or off colour coding for the editor's output. Keywords will be in cyan, 
 numbers in red, etc. The default is off. 
 Notes: 
-ï‚· This setting is saved in flash memory and is applied on startup. 
-ï‚· Colour coding requires a terminal emulator that can interpret the 
+? This setting is saved in flash memory and is applied on startup. 
+? Colour coding requires a terminal emulator that can interpret the 
 appropriate escape codes. It works correctly with Tera Term however Putty needs 
 its default background colour to be changed to white. 
-ï‚· If colour coding is used it is recommended that the baud rate for the 
+? If colour coding is used it is recommended that the baud rate for the 
 serial console be set to a high speed. 
-ï‚· The keyword COLORCODE (USA spelling) can also be used. 
+? The keyword COLORCODE (USA spelling) can also be used. 
 
 ``OPTION CONSOLE
 OPTION CONSOLE ECHO | NOECHO | INVERT | NOINVERT | AUTO 
@@ -1759,8 +1758,8 @@ and touch interrupt respectively (any free pins can be used).
 ``PAUSE
 PAUSE delay 
 
-Halt execution of the running program for â€˜delayâ€™ mS. 
-This can be a fraction. For example, 0.2 is equal to 200 ÂµS. 
+Halt execution of the running program for ‘delay’ mS. 
+This can be a fraction. For example, 0.2 is equal to 200 µS. 
 The maximum delay is 2147483647 mS (about 24 days). 
 Note that interrupts will be recognised and processed during a pause. 
 
@@ -1773,11 +1772,11 @@ PEEK(VARADDR var)
 or 
 PEEK(CFUNADDR cfun) 
 or 
-PEEK(VAR var, Â±offset) 
+PEEK(VAR var, ±offset) 
 or 
-PEEK( VARTBL, Â±offset) 
+PEEK( VARTBL, ±offset) 
 or 
-PEEK( PROGMEM, Â±offset) 
+PEEK( PROGMEM, ±offset) 
 
 Will return a byte or a word within the PIC32 virtual memory space. 
 BYTE will return the byte (8-bits) located at 'addr%' 
@@ -1795,8 +1794,8 @@ PROGMEM, will return a byte in the memory allocated to the program.
 Note that there is a comma after the keyword PROGMEM. 
 Note that 'addr%' should be an integer. 
 For backwards compatibility PEEK( hiword, loword ) is still accepted. In this 
-case the address is specifies by â€˜hiwordâ€™ which is the top 16 bits of the 
-address while â€˜lowordâ€™ is the bottom 16 bits. 
+case the address is specifies by ‘hiword’ which is the top 16 bits of the 
+address while ‘loword’ is the bottom 16 bits. 
 This command is for expert users only. The PIC32 maps all control registers, 
 flash (program) memory and volatile (RAM) memory into a single address space so 
 there is no need for INP or OUT commands. The PIC32MX170 Family Data Sheet lists 
@@ -1811,12 +1810,12 @@ Returns the value of pi
 ``PIN
 PIN( pin ) = value 
 
-For a â€˜pinâ€™ configured as digital output this will set the output to low 
-(â€˜valueâ€™ is zero) or high (â€˜valueâ€™ non-zero). You can set an output high or low 
+For a ‘pin’ configured as digital output this will set the output to low 
+(‘value’ is zero) or high (‘value’ non-zero). You can set an output high or low 
 before it is configured as an output and that setting will be the default output 
 when the SETPIN command takes effect. 
 
-When used as function PIN( pin ) returns the value on the external I/O â€˜pinâ€™. 
+When used as function PIN( pin ) returns the value on the external I/O ‘pin’. 
 Zero means digital low, 1 means digital high and for analogue inputs it will 
 return the measured voltage as a 
 floating point number. 
@@ -1853,22 +1852,22 @@ POKE BYTE will set the byte (ie, 8 bits) at the memory location 'addr%' to
 'byte'. 'addr%' should be an integer. 
 POKE WORD will set the word (ie, 32 bits) at the memory location 'addr%' to 
 'word%'. 'addr%' and 'word%' should be integers. 
-POKE VAR will set a byte in the memory address of 'var'. 'offset' is the Â±offset 
+POKE VAR will set a byte in the memory address of 'var'. 'offset' is the ±offset 
 from the address of the variable. An array is specified as var(). 
-POKE VARTBL will set a byte in MMBasic's variable table. 'offset' is the Â±offset 
+POKE VARTBL will set a byte in MMBasic's variable table. 'offset' is the ±offset 
 from the start of the variable table. Note that a comma is required after the 
 keyword VARTBL. 
 For backwards compatibility the old form of POKE hiword, loword, val is still 
-accepted. In this case the address is specified by â€˜hiwordâ€™ which is thetop 16 
-bits of the address while â€˜lowordâ€™ is the bottom 16 bits. 
+accepted. In this case the address is specified by ‘hiword’ which is thetop 16 
+bits of the address while ‘loword’ is the bottom 16 bits. 
 This command is for expert users only. The PIC32 maps all control registers, 
 flash (program) memory and volatile (RAM) memory into a single address space so 
 there is no need for INP or OUT commands. The PIC32 
 Data Sheet lists the details of this address space (RAM starts at 0xA0000000). 
 
 ``PORT
-PORT(start, nbr [,start, nbr]â€¦) = value 
-PORT(start, nbr [,start, nbr]â€¦) 
+PORT(start, nbr [,start, nbr]…) = value 
+PORT(start, nbr [,start, nbr]…) 
 
 Set a number of I/O pins simultaneously (ie, with one command). 
 'start' is an I/O pin number and the lowest bit in 'value' (bit 0) will be used 
@@ -1885,7 +1884,7 @@ This command can be used to conveniently communicate with parallel devices like
 LCD displays. Any number of I/O pins (and therefore bits) can be used from 1 to 
 the number of I/O pins on the chip. 
 
-When used as function PORT(start, nbr [,start, nbr]â€¦) returns the value of a 
+When used as function PORT(start, nbr [,start, nbr]…) returns the value of a 
 number of I/O pins in one operation. 
 'start' is an I/O pin number and its value will be returned as bit 0. 'start'+1 
 will be returned as bit 1, 'start'+2 will be returned as bit 2, and so on for 
@@ -1932,22 +1931,22 @@ functions can be used to justify or otherwise format strings.
 
 Same as above except that the output is directed to a serial communications port 
 
-previously opened as â€˜nbrâ€™. See the OPEN command. 
+previously opened as ‘nbr’. See the OPEN command. 
 
 ``PULSE
 PULSE pin, width 
 
 Will generate a pulse on 'pin' with duration of 'width' mS. 'width' can be a 
-fraction. For example, 0.01 is equal to 10ÂµS and this enables the generation of 
-very narrow pulses. The minimum is 5 ÂµS at 40 MHz to 40 ÂµS at 5 MHz. 
+fraction. For example, 0.01 is equal to 10µS and this enables the generation of 
+very narrow pulses. The minimum is 5 µS at 40 MHz to 40 µS at 5 MHz. 
 The generated pulse is of the opposite polarity to the state of the I/O pin when 
 the command is executed. For example, if the output is set high the PULSE 
 command will generate a negative going pulse. 
 Notes: 
-ï‚· 'pin' must be configured as an output. 
-ï‚· For a pulse of less than 3 mS the accuracy is Â± 1 ÂµS. 
-ï‚· For a pulse of 3 mS or more the accuracy is Â± 0.5 mS. 
-ï‚· A pulse of 3 mS or more will run in the background. Up to five different and 
+? 'pin' must be configured as an output. 
+? For a pulse of less than 3 mS the accuracy is ± 1 µS. 
+? For a pulse of 3 mS or more the accuracy is ± 0.5 mS. 
+? A pulse of 3 mS or more will run in the background. Up to five different and 
 concurrent pulses can be running in the background and each can have its time 
 changed by issuing a new PULSE command or it can be terminated by issuing a 
 PULSE command with zero for 'width'. 
@@ -1959,19 +1958,19 @@ PULSIN( pin, polarity, t1 )
 or 
 PULSIN( pin, polarity, t1, t2 ) 
 
-Measures the width of an input pulse from 1ÂµS to 1 second with 0.1ÂµS resolution. 
+Measures the width of an input pulse from 1µS to 1 second with 0.1µS resolution. 
 'pin' is the I/O pin to use for the measurement, it must be previously 
 configured as a digital input. 'polarity' is the type of pulse to measure, if 
 zero the function will return the width of the next negative pulse, if non zero 
 it will measure the next positive pulse. 
 't1' is the timeout applied while waiting for the pulse to arrive, 't2' is the 
-timeout used while measuring the pulse. Both are in microseconds (ÂµS) and are 
+timeout used while measuring the pulse. Both are in microseconds (µS) and are 
 optional. If 't2' is omitted the value of 't1' will be used for both timeouts. 
 If both 't1' and 't2' are omitted then the timeouts will be set at 100000 (ie, 
 100mS). 
-This function returns the width of the pulse in microseconds (ÂµS) or -1 if a 
+This function returns the width of the pulse in microseconds (µS) or -1 if a 
 timeout has occurred. With a CPU speed of 40MHz the measurement is accurate to 
-Â±0.5% and Â±0.5ÂµS. At other speeds the measurement is slightly less accurate. 
+±0.5% and ±0.5µS. At other speeds the measurement is slightly less accurate. 
 Note that this function will cause the running program to pause while the 
 measurement is made and interrupts will be ignored during this period. 
 
@@ -1996,7 +1995,7 @@ Controller 1 can have one, two or three outputs while controller 2 can have one
 or two outputs. 
 Both controllers are independent and can be turned on and off and have different 
 frequencies. 
-'1' or '2' is the controller number and â€˜freqâ€™ is the output frequency (between 
+'1' or '2' is the controller number and ‘freq’ is the output frequency (between 
 20 Hz and 500 kHz). 
 1A, 1B and 1C are the duty cycle for each of the controller 1 outputs while 2A 
 and 2B are the duty cycle for the controller 2 outputs. 
@@ -2022,10 +2021,10 @@ Converts 'degrees' to radians.
 ``RANDOMIZE 
 RANDOMIZE nbr 
 
-Seed the random number generator with â€˜nbrâ€™. 
+Seed the random number generator with ‘nbr’. 
 On power up the random number generator is seeded with zero and will generate 
 the same sequence of random numbers each time. To generate a different random 
-sequence each time you must use a different value for â€˜nbrâ€™ 
+sequence each time you must use a different value for ‘nbr’ 
 (the TIMER function is handy for that). 
 
 ``RBOX
@@ -2057,9 +2056,9 @@ also supported and is preferred.
 RESTORE [line] 
 
 Resets the line and position counters for the READ statement. 
-If â€˜lineâ€™ is specified the counters will be reset to the beginning of the 
-specified line. â€˜lineâ€™ can be a line number or label. 
-If â€˜lineâ€™ is not specified the counters will be reset to the start of the 
+If ‘line’ is specified the counters will be reset to the beginning of the 
+specified line. ‘line’ can be a line number or label. 
+If ‘line’ is not specified the counters will be reset to the start of the 
 program. 
 
 ``RETURN
@@ -2084,7 +2083,7 @@ For example, RGB(red) or RGB(cyan).
 ``RIGHT$
 RIGHT$( string$, number-ofchars ) 
 
-Returns a substring of â€˜string$â€™ with â€˜number-of-charsâ€™ from the right (end) of 
+Returns a substring of ‘string$’ with ‘number-of-chars’ from the right (end) of 
 the string. 
 
 ``RND
@@ -2128,7 +2127,7 @@ Run the program held in flash memory.
 
 ``SELECT CASE
 SELECT CASE value 
-CASE testexp [[, testexp] â€¦] 
+CASE testexp [[, testexp] …] 
 <statements> 
 <statements> 
 CASE ELSE 
@@ -2141,10 +2140,10 @@ expression.
 'value' is the expression to be tested. It can be a number or string variable or 
 a complex expression. 
 'testexp' is the value that 'exp' is to be compared against. It can be: 
-ï‚· A single expression (ie, 34, "string" or PIN(4)*5) to which it may equal 
-ï‚· A range of values in the form of two single expressions separated by the 
+? A single expression (ie, 34, "string" or PIN(4)*5) to which it may equal 
+? A range of values in the form of two single expressions separated by the 
 keyword "TO" (ie, 5 TO 9 or "aa" TO "cc") 
-ï‚· A comparison starting with the keyword "IS" (which is optional). For example: 
+? A comparison starting with the keyword "IS" (which is optional). For example: 
 IS > 5, IS <= 10. 
 When a number of test expressions (separated by commas) are used the CASE 
 statement will be true if any one of these tests evaluates to true. 
@@ -2158,8 +2157,8 @@ then continue with the code following the END SELECT.
 An unlimited number of CASE statements can be used but there must be only one 
 CASE ELSE and that should be the last before the END SELECT. 
 Each SELECT CASE must have one and one only matching END SELECT statement. Any 
-number of SELECTâ€¦CASE statements can be nested inside the CASE statements of 
-other SELECTâ€¦CASE statements. 
+number of SELECT…CASE statements can be nested inside the CASE statements of 
+other SELECT…CASE statements. 
 Example: 
 SELECT CASE nbr% 
 CASE 4, 9, 22, 33 TO 88 
@@ -2189,7 +2188,7 @@ to three servos and the second two servos. Both controllers are independent and
 can be turned on and off and have different frequencies. 
 This command uses the I/O pins that are designated as PWM in the diagrams on 
 pages 6 and 7 (the two commands are very similar). 
-'1' or '2' is the controller number. â€˜freqâ€™ is the output frequency (between 
+'1' or '2' is the controller number. ‘freq’ is the output frequency (between 
 20Hz and 1000 Hz) and is optional. If not specified it will default to 50 Hz 1A, 
 1B and 1C are the pulse widths for each of the controller 1 outputs while 
 2A and 2B are the pulse widths for the controller 2 outputs. The specified I/O 
@@ -2212,7 +2211,7 @@ SETPIN pin, cfg, target [,option]
 
 Will configure an external I/O pin. 
 'pin' is the I/O pin to configure 
-â€˜cfgâ€™ is the mode that the pin is to be set to and 'option' is an optional 
+‘cfg’ is the mode that the pin is to be set to and 'option' is an optional 
 parameter. 
 'cfg' is a keyword and can be any one of the following: 
 OFF Not configured or inactive 
@@ -2245,7 +2244,7 @@ For backwards compatibility they will still be recognised.
 See the function PIN() for reading inputs and the statement PIN()= for setting 
 an output. See the command below if an interrupt is configured. 
 
-Will configure â€˜pinâ€™ to generate an interrupt according to â€˜cfgâ€™. 
+Will configure ‘pin’ to generate an interrupt according to ‘cfg’. 
 Any I/O pin capable of digital input can be configured to generate an interrupt 
 with a maximum of ten interrupts configured at any one time. 
 'cfg' is a keyword and can be any one of the following: 
@@ -2253,7 +2252,7 @@ OFF Not configured or inactive
 INTH Interrupt on low to high input 
 INTL Interrupt on high to low input 
 INTB Interrupt on both (ie, any change to the input) 
-â€˜target' is a user defined subroutine which will be called when the event 
+‘target' is a user defined subroutine which will be called when the event 
 happens. Return from the interrupt is via the END SUB or EXIT SUB commands. 
 If 'option' is the keyword "PULLUP" an internal resistor will be used to pullup 
 the input pin to 3.3V If the keyword "PULLDOWN" is used the pin will be pulled 
@@ -2268,10 +2267,10 @@ SETTICK period, target [, nbr]
 This will setup a periodic interrupt (or "tick"). 
 Four tick timers are available ('nbr' = 1, 2, 3 or 4). 'nbr' is optional and if 
 not specified timer number 1 will be used. 
-The time between interrupts is â€˜periodâ€™ milliseconds and â€˜target' is the 
+The time between interrupts is ‘period’ milliseconds and ‘target' is the 
 interrupt subroutine which will be called when the timed event occurs. 
 The period can range from 1 to 2147483647 mSec (about 24 days). 
-These interrupts can be disabled by setting â€˜periodâ€™ to zero (ie, SETTICK 0, 0, 
+These interrupts can be disabled by setting ‘period’ to zero (ie, SETTICK 0, 0, 
 3 will disable tick timer number 3). 
 
 ``SGN
@@ -2314,13 +2313,13 @@ The syntax for opening the SPI channel is:
 
 SPI OPEN speed, mode, bits 
 Where: 
-ï‚· â€˜speedâ€™ is the speed of the clock. It is a number representing the clock speed 
+? ‘speed’ is the speed of the clock. It is a number representing the clock speed 
 in Hz. The maximum is 
 one quarter the CPU speed (ie, 10000000 at a CPU speed of 40 MHz). 
-ï‚· 'mode' is a single numeric digit representing the transmission mode â€“ see 
+? 'mode' is a single numeric digit representing the transmission mode – see 
 Transmission Format below. 
-ï‚· 'bits' is the number of bits to send/receive. This can be 8, 16 or 32. 
-ï‚· It is the responsibility of the program to separately manipulate the CS (chip 
+? 'bits' is the number of bits to send/receive. This can be 8, 16 or 32. 
+? It is the responsibility of the program to separately manipulate the CS (chip 
 select) pin if required. 
 
 ``SPI READ
@@ -2396,7 +2395,7 @@ string$ or the character representing the ASCII value 'ascii' which is a decimal
 number in the range of 32 to 126. 
 
 ``SUB
-SUB xxx (arg1 [,arg2, â€¦]) 
+SUB xxx (arg1 [,arg2, …]) 
 <statements> 
 <statements> 
 END SUB 
@@ -2444,7 +2443,7 @@ TEMPR( pin )
 Return the temperature measured by a DS18B20 temperature sensor connected to 
 'pin' (which does not have to be configured). The CPU speed must be 20 MHz or 
 above. 
-The returned value is degrees C with a default resolution of 0.25ÂºC. If there is 
+The returned value is degrees C with a default resolution of 0.25?C. If there is 
 an error during the measurement the returned value will be 1000. 
 The time required for the overall measurement is 200mS and interrupts will be 
 ignored during this period. Alternatively the TEMPR START command can be used to 
@@ -2471,16 +2470,16 @@ the conversion time has completed the function will wait for the remaining
 conversion time before returning the value. 
 'precision' is the resolution of the measurement and is optional. It is a number 
 between 0 and 3 meaning: 
-0 = 0.5ÂºC resolution, 100 mS conversion time. 
-1 = 0.25ÂºC resolution, 200 mS conversion time (this is the default). 
-2 = 0.125ÂºC resolution, 400 mS conversion time. 
-3 = 0.0625ÂºC resolution, 800 mS conversion time. 
+0 = 0.5?C resolution, 100 mS conversion time. 
+1 = 0.25?C resolution, 200 mS conversion time (this is the default). 
+2 = 0.125?C resolution, 400 mS conversion time. 
+3 = 0.0625?C resolution, 800 mS conversion time. 
 
 ``TEXT
 TEXT x, y, string$ [,justification] [, font] [, scale] [, c] [, bc] 
 
 Displays a string on an attached LCD panel starting at 'x' and 'y'. 
-â€˜string$â€™ is the string to be displayed. Note that numeric data can be converted 
+‘string$’ is the string to be displayed. Note that numeric data can be converted 
 to a string and formatted using the Str$() function. 
 'justification' is one or two letters where the first letter is the horizontal 
 justification around 'x' and can be L, C or R for LEFT, CENTER, RIGHT and the 
@@ -2546,18 +2545,18 @@ on).
 ``UCASE$
 UCASE$( string$ ) 
 
-Returns â€˜string$â€™ converted to uppercase characters. 
+Returns ‘string$’ converted to uppercase characters. 
 
 ``VAL
 VAL( string$ ) 
 
-Returns the numerical value of the â€˜string$â€™. If 'string$' is an invalid number 
+Returns the numerical value of the ‘string$’. If 'string$' is an invalid number 
 the function will return zero. 
 This function will recognise the &H prefix for a hexadecimal number, &O for 
 octal and &B for binary. 
 
 ``VAR
-VAR SAVE var [, var]â€¦ 
+VAR SAVE var [, var]… 
 or 
 VAR RESTORE 
 or 
@@ -2580,14 +2579,14 @@ interruption. Normally the VAR RESTORE command is placed at the start
 of the program so that previously saved variables are restored and immediately 
 available to the program when it starts. 
 Notes: 
-ï‚· The storage space available to this command is 2KB or 4KB on the Micromite 
+? The storage space available to this command is 2KB or 4KB on the Micromite 
 Plus. 
-ï‚· Using VAR RESTORE without a previous save will have no effect and will not 
+? Using VAR RESTORE without a previous save will have no effect and will not 
 generate an error. 
-ï‚· If, when using RESTORE, a variable with the same name already exists its value 
+? If, when using RESTORE, a variable with the same name already exists its value 
 will be overwritten. 
-ï‚· Saved arrays must be declared (using DIM) before they can be restored. 
-ï‚· Be aware that string arrays can rapidly use up all the memory allocated to 
+? Saved arrays must be declared (using DIM) before they can be restored. 
+? Be aware that string arrays can rapidly use up all the memory allocated to 
 this command. The LENGTH qualifier can be used when a string array is declared 
 to reduce the size of the array (see the DIM command). 
 
@@ -2638,4 +2637,3 @@ The transfer can take up to 15 seconds to start and if the XMODEM command fails
 to establish communications it will return to the MMBasic prompt after 60 
 seconds and leave the program memory untouched. 
 Download Tera Term from http://ttssh2.sourceforge.jp 
-
